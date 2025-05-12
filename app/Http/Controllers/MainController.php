@@ -25,11 +25,13 @@ class MainController extends Controller
 
     public function about()
     {
-        $socialLinks = Socialmedia::where('isactive', 'Y')->get();
-        $mileStones = Milestone::where('isactive', 'Y')->get();
+        $location = Sysconfig::getValue('MAP_LOCATION');
+        $milestones = Milestone::where('isactive', 'Y')
+                                ->orderBy('milestone_date', 'desc')
+                                ->get();
         $certificate = Certificate::where('isactive', 'Y')->get();
 
-        return view('about', compact('socialLinks', 'mileStones', 'certificate'));
+        return view('about', compact('location', 'milestones', 'certificate'));
     }
 
     public function career()
