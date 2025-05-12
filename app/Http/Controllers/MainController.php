@@ -10,6 +10,7 @@ use App\Models\Milestone;
 use App\Models\Certificate;
 use App\Models\Gallery;
 use App\Models\MailSetting;
+use App\Models\Product;
 use App\Models\Reference;
 use App\Models\ReferenceDetail;
 use Illuminate\Support\Facades\Mail;
@@ -20,7 +21,11 @@ class MainController extends Controller
     public function index()
     {
         $title = 'Home';
-        return view('home', compact('title'));
+        $featuredProducts = Product::where('isactive', 'Y')
+                                    ->where('isfeatured', 'Y')
+                                    ->get();
+
+        return view('home', compact('title', 'featuredProducts'));
     }
 
     public function about()

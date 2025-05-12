@@ -79,64 +79,21 @@
             <i class="bi bi-arrow-right-short"></i>
           </button>
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="service-item">
-                <div class="service-item-contents">
-                  <a href="#">
-                    <span class="service-item-category">Category</span>
-                    <h2 class="service-item-title">Nama</h2>
-                  </a>
+            @foreach ($featuredProducts as $product)
+              <div class="swiper-slide">
+                <div class="service-item">
+                  <div class="service-item-contents">
+                    {{-- <a href="{{ route('product.show', $product->id) }}"> optional: ganti dengan route sesuai kebutuhan --}}
+                    <a href="#"> {{-- optional: ganti dengan route sesuai kebutuhan --}}
+                      <span class="service-item-category">{{ $product->category->name ?? 'Uncategorized' }}</span>
+                      <h2 class="service-item-title">{{ $product->name }}</h2>
+                    </a>
+                  </div>
+                  <img src="{{ asset('storage/' . $product->logo) }}" alt="{{ $product->name }}" class="img-fluid">
                 </div>
-                <img src="assets/img/product/best-product-4.png" alt="Image" class="img-fluid">
               </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="service-item">
-                <div class="service-item-contents">
-                  <a href="#">
-                    <span class="service-item-category">Category</span>
-                    <h2 class="service-item-title">nama</h2>
-                  </a>
-                </div>
-                <img src="assets/img/product/best-product-4.png" alt="Image" class="img-fluid">
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="service-item">
-                <div class="service-item-contents">
-                  <a href="#">
-                    <span class="service-item-category">Category</span>
-                    <h2 class="service-item-title">Nama</h2>
-                  </a>
-                </div>
-                <img src="assets/img/product/best-product-4.png" alt="Image" class="img-fluid">
-              </div>
-            </div>
-
-            <div class="swiper-slide">
-              <div class="service-item">
-                <div class="service-item-contents">
-                  <a href="#">
-                    <span class="service-item-category">Category/span>
-                    <h2 class="service-item-title">Nama</h2>
-                  </a>
-                </div>
-                <img src="assets/img/product/best-product-4.png" alt="Image" class="img-fluid">
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="service-item">
-                <div class="service-item-contents">
-                  <a href="#">
-                    <span class="service-item-category">Category</span>
-                    <h2 class="service-item-title">Nama</h2>
-                  </a>
-                </div>
-                <img src="assets/img/product/best-product-4.png" alt="Image" class="img-fluid">
-              </div>
-            </div>
-            
-          </div>
+            @endforeach
+          </div>          
           <div class="swiper-pagination"></div>
         </div>
       </div>
