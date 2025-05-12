@@ -26,4 +26,27 @@
     <!-- Main CSS File -->
     <link href="{{ asset('template/css/main.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
+
+    <style>
+        html, body {
+          height: 100%;
+          margin: 0;
+        }
+    
+        body {
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+        }
+    
+        main {
+          flex: 1;
+        }
+    
+        footer {
+          background: #f8f9fa;
+          padding: 20px;
+          text-align: center;
+        }
+    </style>
 </head>
