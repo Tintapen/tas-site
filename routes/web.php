@@ -16,7 +16,14 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
+Route::get('/', [MainController::class, 'index']);
+Route::get('/about-us', [MainController::class, 'about']);
+Route::get('/career', [MainController::class, 'career']);
 
+Route::get('/lang/{lang}', function ($lang) {
+    session(['lang' => $lang]);
+    return redirect()->back();
+});
 
 Route::get('/template/category-download', function () {
     return response()->download(public_path('import-templates/category-import-template.xlsx'));
