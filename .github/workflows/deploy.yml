@@ -20,4 +20,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
-          server-dir: /test/  # ganti jika root-nya berbeda
+          server-dir: /tas/  # ganti jika root-nya berbeda
