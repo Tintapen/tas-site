@@ -8,7 +8,10 @@ use App\Models\Sysconfig;
 use App\Models\CompanySetting;
 use App\Models\Milestone;
 use App\Models\Certificate;
+use App\Models\Gallery;
 use App\Models\MailSetting;
+use App\Models\Reference;
+use App\Models\ReferenceDetail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
@@ -36,13 +39,32 @@ class MainController extends Controller
         return view('career', compact('socialLinks'));
     }
 
+    public function gallery()
+    {
+        $ref = Reference::where('name', 'Gallery Group')
+        ->where('isactive', 'Y')
+        ->first();
+
+        $galleryGroups = [];
+        if ($ref) {
+            $galleryGroups = ReferenceDetail::where('references_id', $ref->id)
+                ->where('isactive', 'Y')
+                ->where('name', '!=', 'All')
+                ->pluck('name', 'value')
+                ->toArray();
+        }
+
+        $galleries = Gallery::where('isactive', 'Y')->get();
+
+        return view('gallery', compact('galleries', 'galleryGroups'));
+    }
+
     public function contact()
     {
-        $title = 'Contact';
         $company = CompanySetting::where('isactive', 'Y')->first();
         $location = Sysconfig::getValue('LOCATION');
 
-        return view('contact', compact('title', 'company', 'location'));
+        return view('contact', compact('company', 'location'));
     }
 
     public function sendContact(Request $request)
