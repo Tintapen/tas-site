@@ -1,6 +1,6 @@
 @extends('layouts.overview')
 
-@section('title', $title)
+@section('title', __('Contact.CH1'))
 
 @section('content')
   <!-- Page Title -->
