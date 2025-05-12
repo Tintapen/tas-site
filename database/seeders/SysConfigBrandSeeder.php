@@ -50,6 +50,12 @@ class SysConfigBrandSeeder extends Seeder
                 'value'         => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5325.4814161270115!2d106.8746948!3d-6.1316489999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6a1fd65e315457%3A0xae919023d8db827a!2sPT.%20Tri%20Anugerah%20Surya!5e1!3m2!1sen!2sid!4v1739891713558!5m2!1sen!2sid',
                 'name'          => 'MAP_LOCATION'
             ],
+            [
+                'created_by'    => 1,
+                'updated_by'    => 1,
+                'value'         => 'https://www.google.com/maps/place/PT.+Tri+Anugerah+Surya/@-6.131649,106.8746948,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6a1fd65e315457:0xae919023d8db827a!8m2!3d-6.131649!4d106.8746948!16s%2Fg%2F11c1ww44sb?entry=ttu&g_ep=EgoyMDI1MDUwNy4wIKXMDSoASAFQAw%3D%3D',
+                'name'          => 'LOCATION'
+            ],
         ];
 
         Sysconfig::insert($data);

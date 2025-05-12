@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Storage;
 Route::get('/', [MainController::class, 'index']);
 Route::get('/about-us', [MainController::class, 'about']);
 Route::get('/career', [MainController::class, 'career']);
+Route::get('/contact', [MainController::class, 'contact']);
+Route::post('/contact/send', [MainController::class, 'sendContact'])->name('contact.send');
 
 Route::get('/lang/{lang}', function ($lang) {
     session(['lang' => $lang]);
