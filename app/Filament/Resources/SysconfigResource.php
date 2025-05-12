@@ -51,6 +51,7 @@ class SysconfigResource extends BaseResource
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('value')
+                    ->wrap()
                     ->searchable(),
                 TextColumn::make('description')
                     ->searchable(),
@@ -92,18 +93,5 @@ class SysconfigResource extends BaseResource
             'create' => Pages\CreateSysconfig::route('/create'),
             'edit' => Pages\EditSysconfig::route('/{record}/edit'),
         ];
-    }
-
-    public static function getBreadcrumbs(): array
-    {
-        return [
-            'Home' => route('filament.pages.dashboard'),
-            'Sysconfigs' => route('filament.resources.sysconfigs.index'),
-        ];
-    }
-
-    public static function getTitle(): string
-    {
-        return 'Custom Sysconfig List Title';  // Ganti dengan title kustom
     }
 }
