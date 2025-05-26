@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\StoreResource\Pages;
 use App\Filament\Resources\StoreResource\RelationManagers;
+use App\Models\Marketplace;
 use App\Models\Store;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -18,8 +19,6 @@ use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Filters\SelectFilter;
-use App\Models\ReferenceDetail;
-use App\Models\Reference;
 
 class StoreResource extends BaseResource
 {
@@ -40,16 +39,8 @@ class StoreResource extends BaseResource
                 Select::make('store')
                     ->label('Store List')
                     ->options(function () {
-                        $ref = Reference::where('name', 'Store List')
-                            ->where('isactive', 'Y')
-                            ->first();
-                        if (!$ref) {
-                            return [];
-                        }
-
-                        return ReferenceDetail::where('references_id', $ref->id)
-                            ->where('isactive', 'Y')
-                            ->pluck('name', 'value')
+                        return Marketplace::where('isactive', 'Y')
+                            ->pluck('name', 'name')
                             ->toArray();
                     })
                     ->searchable()
