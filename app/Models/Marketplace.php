@@ -16,4 +16,9 @@ class Marketplace extends Model
         'isactive',
         'logo'
     ];
+
+    public function stores()
+    {
+        return $this->hasMany(Store::class, 'store', 'name');
+    }
 }
