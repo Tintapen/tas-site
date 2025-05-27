@@ -3,7 +3,7 @@ name: Deploy via SFTP
 on:
   push:
     branches:
-      - main  # Ganti sesuai branch yang kamu pakai
+      - main
 
 jobs:
   deploy:
@@ -16,11 +16,10 @@ jobs:
       - name: Deploy files via SFTP (scp)
         uses: appleboy/scp-action@v0.1.5
         with:
-          host: ${{ secrets.FTP_HOST }}         # misal ftp.trianugerahsurya.co.id
-          username: ${{ secrets.FTP_USERNAME }} # username FTP/SFTP kamu
-          password: ${{ secrets.FTP_PASSWORD }} # passwordnya
-          port: 22                             # port default SFTP adalah 22
-          source: "./"                        # folder lokal yang akan diupload (root repo)
-          target: "./"              # folder tujuan di server (sesuaikan)
-          strip_components: 0                 # optional, untuk hapus level folder kalau mau
-          recursive: true                    # agar folder dan file terupload semua
+          host: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 22
+          source: "./"
+          target: "./"
+          strip_components: 0
