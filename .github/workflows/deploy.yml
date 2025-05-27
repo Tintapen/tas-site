@@ -1,4 +1,4 @@
-name: Deploy ke CPanel via FTP New
+name: Deploy ke CPanel via FTP
 
 on:
   push:
