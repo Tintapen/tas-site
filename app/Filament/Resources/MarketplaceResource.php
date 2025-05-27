@@ -2,10 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\StoreResource\Pages;
-use App\Filament\Resources\StoreResource\RelationManagers;
+use App\Filament\Resources\MarketplaceResource\Pages;
+use App\Filament\Resources\MarketplaceResource\RelationManagers;
 use App\Models\Marketplace;
-use App\Models\Store;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,39 +14,40 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Select;
+use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Support\Facades\Storage;
 
-class StoreResource extends BaseResource
+class MarketplaceResource extends BaseResource
 {
-    protected static ?string $model = Store::class;
+    protected static ?string $model = Marketplace::class;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->required(),
+                    ->label('Name')
+                    ->required()
+                    ->unique(ignoreRecord: true),
                 Toggle::make('isactive')
                     ->label('Status')
                     ->inline(false)
                     ->default(true)
                     ->formatStateUsing(fn ($state) => $state === 'Y' || $state === true || is_null($state))
                     ->dehydrateStateUsing(fn ($state) => $state ? 'Y' : 'N'),
-                Select::make('store')
-                    ->label('Store List')
-                    ->options(function () {
-                        return Marketplace::where('isactive', 'Y')
-                            ->pluck('name', 'name')
-                            ->toArray();
-                    })
-                    ->searchable()
-                    ->required(),
-                TextInput::make('url')
-                    ->label('URL')
-                    ->required(),
+                FileUpload::make('logo')
+                    ->label('Logo')
+                    ->image()
+                    ->imagePreviewHeight('100')
+                    ->directory('marketplace-logos')
+                    ->maxSize(1024)
+                    ->required()
+                    ->visibility('public')
+                    ->previewable(fn ($state): ?string => is_string($state) ? Storage::disk('public')->url($state) : null),
             ]);
     }
 
@@ -55,21 +55,19 @@ class StoreResource extends BaseResource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('store')
-                    ->getStateUsing(function ($record) {
-                        return $record->referenceDetail->name ?? 'N/A';
-                    })
-                    ->searchable(),
-                TextColumn::make('url')
-                    ->wrap(),
+                ImageColumn::make('logo')
+                    ->label('Logo')
+                    ->disk('public')
+                    ->visibility('public')
+                    ->url(fn ($record) => Storage::disk('public')->url($record->logo))
+                    ->circular(),
                 BadgeColumn::make('isactive')
                     ->label('Status')
                     ->formatStateUsing(fn (string $state): string => $state === 'Y' ? 'Active' : 'Nonactive')
                     ->color(fn (string $state): string => $state === 'Y' ? 'success' : 'danger'),
             ])
-            ->defaultSort('name')
             ->filters([
                 SelectFilter::make('isactive')
                     ->label('Status')
@@ -98,9 +96,9 @@ class StoreResource extends BaseResource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListStores::route('/'),
-            'create' => Pages\CreateStore::route('/create'),
-            'edit' => Pages\EditStore::route('/{record}/edit'),
+            'index' => Pages\ListMarketplaces::route('/'),
+            'create' => Pages\CreateMarketplace::route('/create'),
+            'edit' => Pages\EditMarketplace::route('/{record}/edit'),
         ];
     }
 }

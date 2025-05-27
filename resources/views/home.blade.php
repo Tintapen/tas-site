@@ -181,45 +181,40 @@
   <section id="clients" class="clients section light-background">
     <div class="container" data-aos="fade-up">
       <div class="d-flex justify-content-center">
-        <div class="col-xl-2 col-md-1 col-3 client-logo">
-          <img src="{{ asset('template/img/tokped.png') }}" class="img-fluid" alt="" data-toggle="modal" data-target="#my-modal">
-        </div><!-- End Client Item -->
-      
-        <div class="col-xl-2 col-md-3 col-3 client-logo">
-          <img src="{{ asset('template/img/tokped.png') }}" class="img-fluid" alt="" data-toggle="modal" data-target="#my-modal">
-        </div><!-- End Client Item -->
-
-        <div class="col-xl-2 col-md-1 col-3 client-logo">
-          <img src="{{ asset('template/img/tokped.png') }}" class="img-fluid" alt="" data-toggle="modal" data-target="#my-modal">
-        </div><!-- End Client Item -->      
+        @foreach ($marketPlaces as $mp)
+          <div class="col-xl-2 col-md-1 col-3 client-logo">
+            <a href="#" 
+             class="open-modal" 
+             data-id="{{ $mp->id }}" 
+             data-name="{{ $mp->name }}"
+             data-logo="{{ asset('storage/' . $mp->logo) }}"
+             data-stores='@json($mp->stores)'>
+              <img src="{{ asset('storage/' . $mp->logo) }}" class="img-fluid" alt="{{ $mp->name }}">
+            </a>
+          </div>
+        @endforeach
       </div>
     </div>
   </section>
   <!-- MP Section -->
 
-  <div class="container d-flex justify-content-center">
-      <div id="my-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog  modal-dialog-centered justify-content-center " role="document">
-              <div class="modal-content  border-0 mx-sm-3 mx-1">   
-                  <div class="modal-body  p-0">
-                      <div class="row justify-content-center">
-                          <div class="col">
-                              <div class="card">
-                                    
-                                  <div class="card-body">
-                                      <div class="row">
-                                          <div class="col"> <figure class="figure"><a href="www.google.com"><img class="figure-img img-fluid mb-0  " src="assets/img/tokped.png"></a><figcaption class="figure-caption text-center">Philip</figcaption></figure></div>
-                                          <div class="col"> <figure class="figure"><a href="www.google.com"><img class="figure-img img-fluid mb-0  " src="assets/img/tokped.png"></a><figcaption class="figure-caption text-center">Michelin</figcaption></figure></div>
-                                          <div class="col"> <figure class="figure"><a href="www.google.com"><img class="figure-img img-fluid mb-0  " src="assets/img/tokped.png"></a><figcaption class="figure-caption text-center">Lucas</figcaption></figure></div>
-                                      </div>
-                                      
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+  <div id="my-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+      <div class="modal-content border-0 mx-sm-3 mx-1">   
+        <div class="modal-body p-0">
+          <div class="row justify-content-center">
+            <div class="col">
+              <div class="card">                                    
+                <div class="card-body">
+                  <div class="row" id="store-list">
+                    <!-- Store list will be injected here -->
+                  </div>                                      
+                </div>
               </div>
+            </div>
           </div>
+        </div>
       </div>
+    </div>
   </div>
 @endsection

@@ -10,6 +10,7 @@ use App\Models\Milestone;
 use App\Models\Certificate;
 use App\Models\Gallery;
 use App\Models\MailSetting;
+use App\Models\Marketplace;
 use App\Models\Product;
 use App\Models\Reference;
 use App\Models\ReferenceDetail;
@@ -24,8 +25,11 @@ class MainController extends Controller
         $featuredProducts = Product::where('isactive', 'Y')
                                     ->where('isfeatured', 'Y')
                                     ->get();
+        $marketPlaces = Marketplace::where('isactive', 'Y')
+                                    ->whereHas('stores') // hanya yang punya store
+                                    ->get();
 
-        return view('home', compact('title', 'featuredProducts'));
+        return view('home', compact('title', 'featuredProducts', 'marketPlaces'));
     }
 
     public function about()
