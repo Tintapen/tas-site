@@ -1,4 +1,4 @@
-name: Deploy ke CPanel via FTP New
+name: Deploy ke CPanel via FTP
 
 on:
   push:
@@ -13,13 +13,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Deploy via FTP
+      - name: Deploy via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          port: 21
-          local-dir: ./      # Upload semua isi repo
-          server-dir: ./    # Tujuan upload di server
+          protocol: ftps             # WAJIB pakai ftps
+          timeout: 60                # Tambahkan timeout untuk koneksi lambat
+          local-dir: ./             # Folder project kamu
+          server-dir: /             # Tujuan di server FTP
