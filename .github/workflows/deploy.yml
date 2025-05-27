@@ -1,4 +1,4 @@
-name: Deploy ke CPanel via FTP
+name: Deploy via SFTP
 
 on:
   push:
@@ -10,16 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Deploy via FTPS
+      - name: Deploy via SFTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps             # WAJIB pakai ftps
-          timeout: 60                # Tambahkan timeout untuk koneksi lambat
-          local-dir: ./             # Folder project kamu
-          server-dir: /             # Tujuan di server FTP
+          protocol: sftp
+          local-dir: ./
+          server-dir: ./    # sesuaikan path tujuan
