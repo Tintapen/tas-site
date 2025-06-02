@@ -26,6 +26,7 @@
     <!-- Main CSS File -->
     <link href="{{ asset('template/css/main.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
+    <link href="{{ asset('template/css/mile.css') }}" rel="stylesheet">
 
     <style>
         html, body {
