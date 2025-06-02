@@ -22,12 +22,14 @@ Route::get('/career', [MainController::class, 'career']);
 Route::get('/career/{slug}', [MainController::class, 'showCareer'])->name('maincontroller.showCareer');
 Route::post('/career/load-more', [MainController::class, 'loadMoreJobs'])->name('career.loadMore');
 Route::post('/career/apply-job', [MainController::class, 'applyCareer'])->name('career.apply');
+Route::get('/news', [MainController::class, 'news']);
+Route::get('/news/{slug}', [MainController::class, 'showNews'])->name('maincontroller.showNews');
 Route::get('/gallery', [MainController::class, 'gallery']);
 Route::get('/contact', [MainController::class, 'contact']);
 Route::post('/contact/send', [MainController::class, 'sendContact'])->name('contact.send');
 
 Route::get('/lang/{lang}', function ($lang) {
-    session(['lang' => $lang]);
+    session(['locale' => $lang]);
     return redirect()->back();
 });
 

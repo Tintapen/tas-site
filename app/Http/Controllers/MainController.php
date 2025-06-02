@@ -11,6 +11,7 @@ use App\Models\Certificate;
 use App\Models\Gallery;
 use App\Models\Job;
 use App\Models\Marketplace;
+use App\Models\News;
 use App\Models\Product;
 use App\Models\Reference;
 use App\Models\ReferenceDetail;
@@ -125,6 +126,20 @@ class MainController extends Controller
             'html' => view('layouts.career_cards_inline', compact('jobs'))->render(),
             'count' => $jobs->count(),
         ]);
+    }
+
+    public function news()
+    {
+        $news = News::latest()->paginate(6);
+        return view('news', compact('news'));
+    }
+
+    public function showNews($slug)
+    {
+        $news = News::where('isactive', 'Y')
+                    ->where('slug', $slug)
+                    ->firstOrFail();
+        return view('news_detail', compact('news'));
     }
 
     public function gallery()

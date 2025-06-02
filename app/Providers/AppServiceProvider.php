@@ -11,6 +11,7 @@ use Filament\Navigation\NavigationGroup;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Config;
 use App\Models\Sysconfig;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
         $this->setAppTimezone();
         $this->registerFilamentNavigation();
         $this->configureMailSettings();
+        Paginator::useBootstrapFive();
     }
 
     protected function setAppTimezone(): void

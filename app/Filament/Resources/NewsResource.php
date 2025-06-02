@@ -19,10 +19,10 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpSpreadsheet\Reader\BaseReader;
 
 class NewsResource extends BaseResource
 {
@@ -39,24 +39,16 @@ class NewsResource extends BaseResource
                     ->label('Title (EN)')
                     ->required(),
                 RichEditor::make('content_id')
-                    ->fileAttachmentsDirectory('attachments'),
+                    ->label('Content (ID)')
+                    ->required()
+                    ->fileAttachmentsDirectory('attachments')
+                    ->fileAttachmentsVisibility('public')
+                    ->columnSpan(1),
                 RichEditor::make('content_en')
                     ->label('Content (EN)')
                     ->required()
-                    ->toolbarButtons([
-                        'bold',
-                        'italic',
-                        'underline',
-                        'strike',
-                        'bulletList',
-                        'orderedList',
-                        'link',
-                        'image',
-                        'h2',
-                        'h3',
-                        'blockquote',
-                        'codeBlock',
-                    ])
+                    ->fileAttachmentsDirectory('attachments')
+                    ->fileAttachmentsVisibility('public')
                     ->columnSpan(1),
                 DatePicker::make('posted_at')
                     ->label('Posted Date')
@@ -70,7 +62,7 @@ class NewsResource extends BaseResource
                     ->default(true)
                     ->formatStateUsing(fn ($state) => $state === 'Y' || $state === true || is_null($state))
                     ->dehydrateStateUsing(fn ($state) => $state ? 'Y' : 'N'),
-                    FileUpload::make('thumbnail')
+                FileUpload::make('thumbnail')
                     ->label('Thumbnail')
                     ->image()
                     ->imagePreviewHeight('100')
@@ -86,10 +78,32 @@ class NewsResource extends BaseResource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('title_id')
+                    ->label('Title (ID)')
+                    ->searchable()
+                    ->sortable()
+                    ->wrap(),
+                TextColumn::make('posted_at')
+                    ->label('Posted')
+                    ->date('d M Y'),
+                ImageColumn::make('thumbnail')
+                    ->label('Thumbnail')
+                    ->disk('public')
+                    ->visibility('public')
+                    ->url(fn ($record) => Storage::disk('public')->url($record->logo))
+                    ->circular(),
+                BadgeColumn::make('isactive')
+                    ->label('Status')
+                    ->formatStateUsing(fn (string $state): string => $state === 'Y' ? 'Active' : 'Nonactive')
+                    ->color(fn (string $state): string => $state === 'Y' ? 'success' : 'danger'),
             ])
             ->filters([
-                //
+                SelectFilter::make('isactive')
+                    ->label('Status')
+                    ->options([
+                        'Y' => 'Active',
+                        'N' => 'Nonactive',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
