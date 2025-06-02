@@ -26,7 +26,7 @@ Route::get('/news', [MainController::class, 'news']);
 Route::get('/news/{slug}', [MainController::class, 'showNews'])->name('maincontroller.showNews');
 Route::get('/product', [MainController::class, 'product']);
 Route::get('/product/{slug}', [MainController::class, 'showProducts'])->name('maincontroller.showProducts');
-Route::get('/product/{slug}', [MainController::class, 'showProducts'])->name('products.by_principal');
+Route::get('/products/by-principal/{slug}', [MainController::class, 'showProducts'])->name('products.by_principal');
 Route::get('/gallery', [MainController::class, 'gallery']);
 Route::get('/contact', [MainController::class, 'contact']);
 Route::post('/contact/send', [MainController::class, 'sendContact'])->name('contact.send');
