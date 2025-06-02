@@ -16,7 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Illuminate\Support\Facades\Hash;
-use Filament\Tables\Columns\{TextColumn, IconColumn};
+use Filament\Tables\Columns\{BadgeColumn, TextColumn, IconColumn};
+use Filament\Tables\Filters\SelectFilter;
 
 class UserResource extends BaseResource
 {
@@ -52,12 +53,23 @@ class UserResource extends BaseResource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->searchable(),
-                TextColumn::make('email')->searchable(),
-                TextColumn::make('created_at')->dateTime('d M Y'),
+                TextColumn::make('name')
+                    ->searchable(),
+                TextColumn::make('email')
+                    ->searchable(),
+                BadgeColumn::make('isactive')
+                    ->label('Status')
+                    ->formatStateUsing(fn (string $state): string => $state === 'Y' ? 'Active' : 'Nonactive')
+                    ->color(fn (string $state): string => $state === 'Y' ? 'success' : 'danger'),
             ])
+            ->defaultSort('name')
             ->filters([
-                //
+                SelectFilter::make('isactive')
+                    ->label('Status')
+                    ->options([
+                        'Y' => 'Active',
+                        'N' => 'Nonactive',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

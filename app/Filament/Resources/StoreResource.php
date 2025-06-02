@@ -57,10 +57,8 @@ class StoreResource extends BaseResource
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('store')
-                    ->getStateUsing(function ($record) {
-                        return $record->referenceDetail->name ?? 'N/A';
-                    })
+                TextColumn::make('marketplace.name')
+                    ->label('Store')
                     ->searchable(),
                 TextColumn::make('url')
                     ->wrap(),
