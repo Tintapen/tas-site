@@ -102,8 +102,8 @@ class JobResource extends BaseResource
 
                         return ReferenceDetail::where('references_id', $ref->id)
                             ->where('isactive', 'Y')
-                            ->pluck('name', 'value')
                             ->orderBy('value', 'asc')
+                            ->pluck('name', 'value')
                             ->toArray();
                     })
                     ->searchable()
@@ -120,8 +120,8 @@ class JobResource extends BaseResource
 
                         return ReferenceDetail::where('references_id', $ref->id)
                             ->where('isactive', 'Y')
-                            ->pluck('name', 'value')
                             ->orderBy('value', 'asc')
+                            ->pluck('name', 'value')
                             ->toArray();
                     })
                     ->searchable()
