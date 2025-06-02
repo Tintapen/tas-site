@@ -8,12 +8,13 @@ use App\Traits\HasAuditTrail;
 
 class Store extends Model
 {
-    use HasFactory, HasAuditTrail;
+    use HasFactory;
+    use HasAuditTrail;
 
     protected $fillable = ['name', 'isactive', 'store', 'url'];
 
-    public function referenceDetail()
+    public function marketplace()
     {
-        return $this->belongsTo(ReferenceDetail::class, 'store', 'value');
+        return $this->belongsTo(Marketplace::class, 'store', 'name');
     }
 }
