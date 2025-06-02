@@ -1,23 +1,25 @@
-name: Deploy ke CPanel via FTP
+name: Deploy via SFTP
 
 on:
   push:
     branches:
-      - main  # Ganti jika pakai branch lain
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: Deploy files via SFTP (scp)
+        uses: appleboy/scp-action@v0.1.5
         with:
-          server: ${{ secrets.FTP_HOST }}
+          host: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./
-          server-dir: ./
+          port: 22
+          source: ./
+          target: ./
+          strip_components: 0

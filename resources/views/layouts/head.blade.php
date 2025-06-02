@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   
     <!-- Vendor CSS Files -->
     <link href="{{ asset('template/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -27,6 +28,8 @@
     <link href="{{ asset('template/css/main.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
     <link href="{{ asset('template/css/mile.css') }}" rel="stylesheet">
+    <link href="{{ asset('template/css/career.css') }}" rel="stylesheet">
+    <link href="{{ asset('template/css/career_detail.css') }}" rel="stylesheet">
 
     <style>
         html, body {
