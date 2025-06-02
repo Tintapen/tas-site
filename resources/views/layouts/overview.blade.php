@@ -17,5 +17,9 @@
   <div id="preloader"></div>
 
   @include('layouts.script')
+
+  <a href="https://wa.me/{{ $setting->nowhatsapp }}" class="whatsapp-float" target="_blank" aria-label="Chat via WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
 </body>
 </html>
