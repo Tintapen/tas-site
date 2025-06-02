@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
     <link href="{{ asset('template/css/career.css') }}" rel="stylesheet">
     <link href="{{ asset('template/css/career_detail.css') }}" rel="stylesheet">
+    <link href="{{ asset('template/css/style.css') }}" rel="stylesheet">
 
     <style>
         html, body {

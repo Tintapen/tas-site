@@ -49,11 +49,15 @@ class ProductResource extends BaseResource
                             'parent',
                             'parent.parent',
                             'parent.parent.parent',
-                            'parent.parent.parent.parent'
+                            'parent.parent.parent.parent',
+                            'parent.parent.parent.parent.parent',
+                            'parent.parent.principal',
                         ])
                         ->leaf()
                         ->get()
-                        ->mapWithKeys(fn ($cat) => [$cat->id => $cat->fullName()])
+                        ->mapWithKeys(fn ($cat) => [
+                            $cat->id => $cat->fullNameWithPrincipal(),
+                        ])
                         ->sortKeys()
                         ->toArray();
                     })
@@ -119,7 +123,8 @@ class ProductResource extends BaseResource
                     ->searchable(),
                 TextColumn::make('categories_id')
                     ->label('Category')
-                    ->getStateUsing(fn ($record) => optional($record->category)->fullName() ?? '-'),
+                    ->getStateUsing(fn ($record) => optional($record->category)->fullNameWithPrincipal() ?? '-')
+                    ->wrap(),
                 TextColumn::make('content_id')
                     ->label('Detail')
                     ->formatStateUsing(fn ($state) => Str::limit(strip_tags($state), 100))

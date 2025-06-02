@@ -33,7 +33,23 @@ class Category extends Model
         return $query->whereDoesntHave('children');
     }
 
-    public function fullName(): string
+    public function topLevelCategory(): self
+    {
+        $current = $this;
+        while ($current->parent) {
+            $current = $current->parent;
+        }
+        return $current;
+    }
+
+    // Ambil nama principal dari kategori level 1
+    public function getTopPrincipalName(): ?string
+    {
+        $top = $this->topLevelCategory();
+        return $top->principal?->name;
+    }
+
+    public function fullNameWithPrincipal(): string
     {
         $names = [];
         $current = $this;
@@ -41,6 +57,10 @@ class Category extends Model
             array_unshift($names, $current->name);
             $current = $current->parent;
         }
-        return implode(' > ', $names);
+
+        $label = implode(' > ', $names);
+
+        $principalName = $this->getTopPrincipalName();
+        return $principalName ? "$label — $principalName" : $label;
     }
 }

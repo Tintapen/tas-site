@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Socialmedia;
 use App\Models\Sysconfig;
@@ -12,9 +13,11 @@ use App\Models\Gallery;
 use App\Models\Job;
 use App\Models\Marketplace;
 use App\Models\News;
+use App\Models\Principal;
 use App\Models\Product;
 use App\Models\Reference;
 use App\Models\ReferenceDetail;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
@@ -125,6 +128,44 @@ class MainController extends Controller
         return response()->json([
             'html' => view('layouts.career_cards_inline', compact('jobs'))->render(),
             'count' => $jobs->count(),
+        ]);
+    }
+
+    public function product()
+    {
+        $principal = Principal::where('isactive', 'Y')
+                    ->orderBy('order', 'asc')
+                    ->get();
+        return view('product', compact('principal'));
+    }
+
+    public function showProducts(Request $request, $slug)
+    {
+        $principal = Principal::where('slug', $slug)->where('isactive', 'Y')->firstOrFail();
+
+        // Ambil root category dari principal (tanpa parent_id)
+        $categories = Category::where('principals_id', $principal->id)
+            ->whereNull('parent_id')
+            ->with('children.children.children.children') // max level 5
+            ->get();
+
+        $search = $request->query('q');
+        $selectedCategory = $request->query('category_id');
+
+        // Filter produk
+        $products = Product::where('isactive', 'Y')
+            ->when($selectedCategory, fn ($q) => $q->where('categories_id', $selectedCategory))
+            ->when($search, fn ($q) => $q->where('name', 'like', "%$search%"))
+            ->with('category')
+            ->paginate(12)
+            ->withQueryString();
+
+        return view('product_principals', [
+            'principal' => $principal,
+            'products' => $products,
+            'categoriesTree' => $categories,
+            'selectedCategory' => $selectedCategory,
+            'search' => $search,
         ]);
     }
 
