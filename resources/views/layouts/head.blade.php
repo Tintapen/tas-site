@@ -30,6 +30,7 @@
     <link href="{{ asset('template/css/mile.css') }}" rel="stylesheet">
     <link href="{{ asset('template/css/career.css') }}" rel="stylesheet">
     <link href="{{ asset('template/css/career_detail.css') }}" rel="stylesheet">
+    <link href="{{ asset('template/css/style.css') }}" rel="stylesheet">
 
     <style>
         html, body {

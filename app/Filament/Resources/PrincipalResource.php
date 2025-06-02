@@ -39,16 +39,6 @@ class PrincipalResource extends BaseResource
                     ->default(true)
                     ->formatStateUsing(fn ($state) => $state === 'Y' || $state === true || is_null($state))
                     ->dehydrateStateUsing(fn ($state) => $state ? 'Y' : 'N'),
-                TextInput::make('order')
-                    ->label('Order')
-                    ->numeric()
-                    ->required(),
-                TextInput::make('url')
-                    ->label('URL')
-                    ->required(),
-                Textarea::make('description')
-                    ->label('Description')
-                    ->rows(3),
                 FileUpload::make('logo')
                     ->label('Logo')
                     ->image()
@@ -58,6 +48,13 @@ class PrincipalResource extends BaseResource
                     ->required()
                     ->visibility('public')
                     ->previewable(fn ($state): ?string => is_string($state) ? Storage::disk('public')->url($state) : null),
+                Textarea::make('description')
+                    ->label('Description')
+                    ->rows(3),
+                TextInput::make('order')
+                    ->label('Order')
+                    ->numeric()
+                    ->required(),
             ]);
     }
 
@@ -68,7 +65,7 @@ class PrincipalResource extends BaseResource
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('order'),
-                TextColumn::make('url'),
+                TextColumn::make('slug'),
                 ImageColumn::make('logo')
                     ->label('Logo')
                     ->disk('public')
