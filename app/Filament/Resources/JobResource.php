@@ -22,6 +22,8 @@ use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Actions\Action;
 use App\Models\Department;
+use App\Models\Reference;
+use App\Models\ReferenceDetail;
 
 class JobResource extends BaseResource
 {
@@ -88,13 +90,64 @@ class JobResource extends BaseResource
                     ])
                     ->columnSpan(1)
                     ->disabled(fn (?Job $record) => self::isReadOnly($record)),
+                Select::make('job_nature')
+                    ->label('Job Nature')
+                    ->options(function () {
+                        $ref = Reference::where('name', 'Job Nature')
+                            ->where('isactive', 'Y')
+                            ->first();
+                        if (!$ref) {
+                            return [];
+                        }
+
+                        return ReferenceDetail::where('references_id', $ref->id)
+                            ->where('isactive', 'Y')
+                            ->pluck('name', 'value')
+                            ->orderBy('value', 'asc')
+                            ->toArray();
+                    })
+                    ->searchable()
+                    ->required(),
+                Select::make('job_type')
+                    ->label('Job Type')
+                    ->options(function () {
+                        $ref = Reference::where('name', 'Job Type')
+                            ->where('isactive', 'Y')
+                            ->first();
+                        if (!$ref) {
+                            return [];
+                        }
+
+                        return ReferenceDetail::where('references_id', $ref->id)
+                            ->where('isactive', 'Y')
+                            ->pluck('name', 'value')
+                            ->orderBy('value', 'asc')
+                            ->toArray();
+                    })
+                    ->searchable()
+                    ->required(),
+                TextInput::make('vacancy')
+                    ->label('Vacancy')
+                    ->numeric()
+                    ->minValue(1)
+                    ->default(1)
+                    ->required(),
+                DatePicker::make('application_deadline')
+                    ->label('Apply Deadline')
+                    ->native(false)
+                    ->closeOnDateSelection()
+                    ->minDate(now())
+                    ->displayFormat('d M Y')
+                    ->disabled(fn (?Job $record) => self::isReadOnly($record))
+                    ->required(),
                 DatePicker::make('expired_at')
                     ->label('Expired Date')
                     ->native(false) // tampilkan kalender popup bawaan Filament
                     ->closeOnDateSelection() // otomatis tutup setelah pilih tanggal
                     ->minDate(now()) // opsional: biar nggak bisa pilih tanggal lampau
                     ->displayFormat('d M Y')
-                    ->disabled(fn (?Job $record) => self::isReadOnly($record)),
+                    ->disabled(fn (?Job $record) => self::isReadOnly($record))
+                    ->required(),
                 Toggle::make('isactive')
                     ->label('Status')
                     ->inline(false)
@@ -156,6 +209,7 @@ class JobResource extends BaseResource
                     ->action(function ($record, $livewire) {
                         $new = $record->replicate();
                         $new->title_id = $record->title_id . ' (Copy)';
+                        $new->title_en = $record->title_en . ' (Copy)';
                         $new->save();
 
                         $livewire->redirect(JobResource::getUrl('edit', ['record' => $new]));

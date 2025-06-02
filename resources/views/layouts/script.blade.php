@@ -16,6 +16,16 @@
 <script src="{{ asset('template/js/bootstrap.min.js') }}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('error'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var applyModal = new bootstrap.Modal(document.getElementById('applyModal'));
+        applyModal.show();
+    });
+</script>
+@endif
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -51,4 +61,46 @@
       });
     });
   });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    loadMoreBtn.addEventListener('click', function () {
+        const offset = parseInt(this.getAttribute('data-offset'));
+
+        fetch('{{ route("career.loadMore") }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ offset })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.html) {
+                document.getElementById('job-list').insertAdjacentHTML('beforeend', data.html);
+                const newOffset = offset + data.count;
+                loadMoreBtn.setAttribute('data-offset', newOffset);
+                if (data.count < 5) {
+                    loadMoreBtn.remove(); // habis
+                }
+            }
+        })
+        .catch(err => console.error(err));
+    });
+});
+
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses',
+            text: '{{ session('success') }}',
+        });
+    @elseif(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: '{{ session('error') }}',
+        });
+    @endif
 </script>
