@@ -38,9 +38,11 @@ class MainController extends Controller
 
     public function about()
     {
+        $order = Sysconfig::getValue('ORDER_MILESTONE', 'asc');
         $location = Sysconfig::getValue('MAP_LOCATION');
+
         $milestones = Milestone::where('isactive', 'Y')
-                                ->orderBy('milestone_date', 'desc')
+                                ->orderBy('milestone_date', $order)
                                 ->get();
         $certificate = Certificate::where('isactive', 'Y')->get();
 
@@ -49,7 +51,7 @@ class MainController extends Controller
 
     public function career()
     {
-        $limit = 1;
+        $limit = Sysconfig::getValue('PAGE_CAREER', 1);
 
         $job = Job::where('isactive', 'Y')
                     ->where('isexpired', 'N')
@@ -116,7 +118,7 @@ class MainController extends Controller
     public function loadMoreJobs(Request $request)
     {
         $offset = $request->input('offset', 0);
-        $limit = 1;
+        $limit = Sysconfig::getValue('PAGE_CAREER', 1);
 
         $jobs = Job::where('isactive', 'Y')
                     ->where('isexpired', 'N')
@@ -141,6 +143,8 @@ class MainController extends Controller
 
     public function showProducts(Request $request, $slug)
     {
+        $limit = Sysconfig::getValue('PAGE_PRODUCT', 1);
+
         $principal = Principal::where('slug', $slug)->where('isactive', 'Y')->firstOrFail();
 
         // Ambil root category dari principal (tanpa parent_id)
@@ -157,7 +161,7 @@ class MainController extends Controller
             ->when($selectedCategory, fn ($q) => $q->where('categories_id', $selectedCategory))
             ->when($search, fn ($q) => $q->where('name', 'like', "%$search%"))
             ->with('category')
-            ->paginate(12)
+            ->paginate($limit)
             ->withQueryString();
 
         return view('product_principals', [
@@ -171,7 +175,9 @@ class MainController extends Controller
 
     public function news()
     {
-        $news = News::latest()->paginate(6);
+        $limit = Sysconfig::getValue('PAGE_NEWS', 1);
+        $news = News::latest()->paginate($limit);
+
         return view('news', compact('news'));
     }
 
