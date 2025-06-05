@@ -2,6 +2,10 @@
 
 @section('title', __('Career.CH1'))
 
+@push('career')
+    <link href="{{ asset('template/css/career.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
 <!-- Page Title -->
 <div class="page-title dark-background" data-aos="fade" style="background-image: url('{{ asset('template/img/page-title-bg.webp') }}');">

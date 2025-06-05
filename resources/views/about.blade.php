@@ -1,7 +1,9 @@
 @extends('layouts.overview')
 
 @section('title', __('About.AH1'))
-
+@push('mile_css')
+    <link href="{{ asset('template/css/mile.css') }}" rel="stylesheet">
+@endpush
 @section('content')
   <!-- Page Title -->
   <div class="page-title dark-background" data-aos="fade" style="background-image: url('{{ asset('template/img/page-title-bg.webp') }}');">

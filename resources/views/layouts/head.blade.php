@@ -27,10 +27,10 @@
     <!-- Main CSS File -->
     <link href="{{ asset('template/css/main.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
-    <link href="{{ asset('template/css/mile.css') }}" rel="stylesheet">
-    <link href="{{ asset('template/css/career.css') }}" rel="stylesheet">
-    <link href="{{ asset('template/css/career_detail.css') }}" rel="stylesheet">
-    <link href="{{ asset('template/css/style.css') }}" rel="stylesheet">
+    @stack('mile_css')
+    @stack('career')
+    @stack('career_detail')
+    @stack('style')
 
     <style>
         html, body {

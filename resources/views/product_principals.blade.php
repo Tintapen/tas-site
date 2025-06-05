@@ -2,6 +2,10 @@
 
 @section('title', __('Product.PH1'))
 
+@push('style')
+    <link href="{{ asset('template/css/style.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
 <!-- pPage Title -->
 <div class="page-title dark-background" data-aos="fade" style="background-image: url('{{ asset('template/img/page-title-bg.webp') }}');">
