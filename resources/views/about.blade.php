@@ -169,7 +169,7 @@
               <div class="certificate-item">
                 <div class="profile mt-auto">
                   <img src="{{ asset('storage/' . $ctf->logo) }}" class="certificate-img" alt="">
-                  <h3>{{ $ctf->name }}</h3>
+                  <h5>{{ $ctf->name }}</h5>
                 </div>
               </div>
             </div><!-- End certificate item -->
