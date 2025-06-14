@@ -39,9 +39,9 @@
 
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
             @foreach ($galleries as $item)
-              <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-{{ $item->group }}">
-                <div class="portfolio-content h-100">
-                  <img src="{{ asset('storage/' . $item->logo) }}" class="img-fluid" alt="{{ $item->group }}">
+              <div class="col-lg-4 col-md-6 isotope-item filter-{{ $item->group }}">
+                <div class="portfolio-item">
+                  <img src="{{ asset('storage/' . $item->logo) }}" class="portfolio-image" alt="{{ $item->group }}">
                   <div class="portfolio-info">
                     <a href="{{ asset('storage/' . $item->logo) }}"
                        title="{{ $item->group }}"
