@@ -59,7 +59,7 @@ class GalleryResource extends BaseResource
                     ->label('Logo')
                     ->image()
                     ->imagePreviewHeight('100')
-                    ->directory('principal-logos')
+                    ->directory('gallery-logos')
                     ->maxSize(1024)
                     ->required()
                     ->visibility('public')
