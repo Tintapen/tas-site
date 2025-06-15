@@ -44,7 +44,7 @@
     <div class="container">
         <h2 class="text-center">{{ __('Career.CH2') }}</h2>
         <p class="section-description text-center">
-            {{ __('Career.CP2') }}
+            {!! __('Career.CP2') !!}
         </p>
         <div class="row g-3">
             <div class="col-md-6 col-lg-3">

@@ -5,7 +5,7 @@ return [
     'CH2' => 'Core Values',
 
     'CP1' => 'The interlocking circles represent a solid and enduring relationship—reflecting the company’s synergy and ongoing collaboration with customers, vendors, employees, and all business partners.',
-    'CP2' => 'Our company’s core values are born from a strong desire to achieve our vision and mission, along with a deep commitment to excellence in every activity we undertake',
+    'CP2' => 'Our company’s core values are born from a strong desire to achieve our vision and mission, <br> along with a deep commitment to excellence in every activity we undertake',
 
     'CH3' => 'Trust',
     'CH4' => 'Honesty',
