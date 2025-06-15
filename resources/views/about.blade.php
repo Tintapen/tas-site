@@ -104,7 +104,7 @@
                       <div class="shim {{ $shimClass }}"></div>
                   </div>
                   <div class="content">
-                      <h3>{{ $milestone->description }}</h3>
+                      <h4>{{ $milestone->description }}</h4>
                   </div>
               </div>
           @else
@@ -114,7 +114,7 @@
                       <div class="shim shimx {{ $shimClass }}"></div>
                   </div>
                   <div class="content">
-                      <h3>{{ $milestone->description }}</h3>
+                      <h4>{{ $milestone->description }}</h4>
                   </div>
               </div>
               <div class="col col2"></div>
@@ -169,7 +169,7 @@
               <div class="certificate-item">
                 <div class="profile mt-auto">
                   <img src="{{ asset('storage/' . $ctf->logo) }}" class="certificate-img" alt="">
-                  <h5>{{ $ctf->name }}</h5>
+                  <h3>{{ $ctf->name }}</h3>
                 </div>
               </div>
             </div><!-- End certificate item -->
