@@ -43,7 +43,7 @@ class CertificateResource extends BaseResource
                     ->label('Logo')
                     ->image()
                     ->imagePreviewHeight('100')
-                    ->directory('principal-logos')
+                    ->directory('certificate-logos')
                     ->maxSize(1024)
                     ->required()
                     ->visibility('public')
