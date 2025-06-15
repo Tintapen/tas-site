@@ -44,7 +44,7 @@
           <div class="row">
             <div class="col-lg-5 order-2 order-lg-1 mt-3 mt-lg-0 align-self-center" >
               <h1>{{ __('About.AH2') }}</h1>
-              <p style="font-size: 24px;">
+              <p style="font-size: 24px; text-align: justify;" >
               {{ __('About.AP1') }}
               </p>
             </div>
