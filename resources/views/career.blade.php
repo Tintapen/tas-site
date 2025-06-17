@@ -31,7 +31,7 @@
                 <div class="logo-container">
                     <img src="{{ $logo }}" alt="Logo"  class="logo">
                 </div>
-                <p class="mt-4">
+                <p class="mt-4" style="text-align: justify;">
                     {{ __('Career.CP1') }}
                 </p>
             </div>
@@ -44,7 +44,7 @@
     <div class="container">
         <h2 class="text-center">{{ __('Career.CH2') }}</h2>
         <p class="section-description text-center">
-            {{ __('Career.CP2') }}
+            {!! __('Career.CP2') !!}
         </p>
         <div class="row g-3">
             <div class="col-md-6 col-lg-3">
