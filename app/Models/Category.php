@@ -63,4 +63,28 @@ class Category extends Model
         $principalName = $this->getTopPrincipalName();
         return $principalName ? "$label — $principalName" : $label;
     }
+
+    public static function getAllChildCategories($parentIds, &$collectedIds = [])
+    {
+        $children = Category::whereIn('parent_id', $parentIds)->pluck('id');
+
+        if ($children->isEmpty()) {
+            return;
+        }
+
+        // Simpan anak-anak ke daftar akhir
+        foreach ($children as $childId) {
+            if (!in_array($childId, $collectedIds)) {
+                $collectedIds[] = $childId;
+            }
+        }
+
+        // Rekursif lagi untuk cari anak dari anak
+        self::getAllChildCategories($children, $collectedIds);
+    }
+
+    public function childrenRecursive()
+    {
+        return $this->hasMany(Category::class, 'parent_id')->with('childrenRecursive');
+    }
 }

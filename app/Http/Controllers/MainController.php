@@ -147,18 +147,49 @@ class MainController extends Controller
 
         $principal = Principal::where('slug', $slug)->where('isactive', 'Y')->firstOrFail();
 
-        // Ambil root category dari principal (tanpa parent_id)
+        $rootIds = Category::where('principals_id', $principal->id)->pluck('id')->toArray();
+
+        $allIds = $rootIds;
+
+        // Rekursif cari semua turunannya
+        Category::getAllChildCategories($rootIds, $allIds);
+
+        // Ambil semua kategori berdasarkan id yang terkumpul
+        $categoryIds = Category::whereIn('id', $allIds)->pluck('id');
+
         $categories = Category::where('principals_id', $principal->id)
-            ->whereNull('parent_id')
-            ->with('children.children.children.children') // max level 5
-            ->get();
+                        ->where('level', 1)
+                        ->with('childrenRecursive')
+                        ->get();
 
         $search = $request->query('q');
-        $selectedCategory = $request->query('category_id');
+        $selectedCategoryName = $request->query('category');
 
-        // Filter produk
+        $selectedCategory = null;
+        $categoryPath = [];
+        $filterCategoryIds = $categoryIds; // Default semua kategori principal
+
+        if ($selectedCategoryName) {
+            $selectedCategory = Category::where('name', $selectedCategoryName)->first();
+
+            if ($selectedCategory) {
+                // Bangun chain parent ke root
+                $current = $selectedCategory;
+                while ($current) {
+                    $categoryPath[] = $current;
+                    $current = $current->parent;
+                }
+                $categoryPath = array_reverse($categoryPath);
+
+                // Ambil semua anak-anak + dia sendiri
+                $childIds = [];
+                Category::getAllChildCategories([$selectedCategory->id], $childIds);
+                $filterCategoryIds = array_merge([$selectedCategory->id], $childIds);
+            }
+        }
+
         $products = Product::where('isactive', 'Y')
-            ->when($selectedCategory, fn ($q) => $q->where('categories_id', $selectedCategory))
+            ->whereIn('categories_id', $filterCategoryIds)
             ->when($search, fn ($q) => $q->where('name', 'like', "%$search%"))
             ->with('category')
             ->paginate($limit)
@@ -168,7 +199,8 @@ class MainController extends Controller
             'principal' => $principal,
             'products' => $products,
             'categoriesTree' => $categories,
-            'selectedCategory' => $selectedCategory,
+            'categoryPath' => $categoryPath, // array urutan parent -> child
+            'selectedCategoryName' => $selectedCategoryName,
             'search' => $search,
         ]);
     }
