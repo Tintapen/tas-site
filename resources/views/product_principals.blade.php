@@ -29,7 +29,7 @@
           <div class="row g-4">
             <div class="col-xl-6">
               <form method="GET" action="{{ route('products.by_principal', $principal->slug) }}" class="input-group w-100 mx-auto d-flex" id="filterForm">
-                <input type="search" name="q" value="{{ request('q') }}" class="form-control p-3" placeholder="Cari produk..." aria-describedby="search-icon-1">
+                <input type="search" name="q" value="{{ request('q') }}" class="form-control p-3" placeholder="{{ __('Product.PP1') }}" aria-describedby="search-icon-1">
                 <input type="hidden" name="category" id="selectedCategory" id="selectedCategory" value="{{ $selectedCategoryName }}">
                 <button class="input-group-text p-3" id="search-icon-1"><i class="bi bi-search"></i></button>
               </form>
@@ -44,7 +44,7 @@
                   <li>
                       <div class="form-floating mb-2">
                           <select class="form-select" id="categories1">
-                              <option value="">Pilih Kategori Level 1</option>
+                              <option value="">{{ __('Product.PO1') }} 1</option>
                               @foreach ($categoriesTree as $cat)
                                   <option value="{{ $cat->id }}" data-children='@json($cat->childrenRecursive)' {{ isset($categoryPath[0]) && $categoryPath[0]->id == $cat->id ? 'selected' : '' }}>
                                       {{ $cat->name }}
@@ -59,7 +59,7 @@
                       <li>
                           <div class="form-floating mb-2 category-wrapper" id="wrapper{{ $i }}" style="display: none;">
                               <select class="form-select" id="categories{{ $i }}" disabled>
-                                  <option value="">Pilih Kategori Level {{ $i }}</option>
+                                  <option value="">>{{ __('Product.PO1') }} {{ $i }}</option>
                               </select>
                               <label for="categories{{ $i }}">Level {{ $i }}</label>
                           </div>
@@ -67,7 +67,7 @@
                   @endfor
 
                   <li>
-                      <button id="filterButton" type="button" class="btn btn-primary w-100">Terapkan Filter</button>
+                      <button id="filterButton" type="button" class="btn btn-primary w-100">{{ __('Product.PB1') }}</button>
                   </li>
                 </ul>
               </div>

@@ -94,6 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const filterButton = document.getElementById('filterButton');
     const filterForm = document.getElementById('filterForm');
     const hiddenCategory = document.getElementById('selectedCategory');
+    const langSelectLevel = @json(__('Product.PO1'));
 
     const categories = [
         document.getElementById('categories1'),
@@ -113,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function resetLevel(startIndex) {
         for (let i = startIndex; i < categories.length; i++) {
-            categories[i].innerHTML = `<option value="">Pilih Kategori Level ${i + 1}</option>`;
+            categories[i].innerHTML = `<option value="">${langSelectLevel} ${i + 1}</option>`;
             categories[i].disabled = true;
             wrappers[i] && (wrappers[i].style.display = 'none');
         }
@@ -121,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function populateSelect(select, wrapper, children, selectedId = null) {
         const level = select.id.replace('categories', '');
-        select.innerHTML = `<option value="">Pilih Kategori Level ${level}</option>`;
+        select.innerHTML = `<option value="">${langSelectLevel} ${level}</option>`;
         
         if (children.length) {
             children.forEach(child => {
