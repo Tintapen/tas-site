@@ -28,7 +28,7 @@
 @endif
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     const modal = new bootstrap.Modal(document.getElementById('my-modal'));
 
     document.querySelectorAll('.open-modal').forEach(item => {
@@ -60,9 +60,9 @@
         modal.show();
       });
     });
-  });
+});
 
-  document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     const loadMoreBtn = document.getElementById('load-more-btn');
     loadMoreBtn.addEventListener('click', function () {
         const offset = parseInt(this.getAttribute('data-offset'));
@@ -87,6 +87,120 @@
             }
         })
         .catch(err => console.error(err));
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const filterButton = document.getElementById('filterButton');
+    const filterForm = document.getElementById('filterForm');
+    const hiddenCategory = document.getElementById('selectedCategory');
+
+    const categories = [
+        document.getElementById('categories1'),
+        document.getElementById('categories2'),
+        document.getElementById('categories3'),
+        document.getElementById('categories4'),
+        document.getElementById('categories5')
+    ];
+
+    const wrappers = [
+        null,
+        document.getElementById('wrapper2'),
+        document.getElementById('wrapper3'),
+        document.getElementById('wrapper4'),
+        document.getElementById('wrapper5')
+    ];
+
+    function resetLevel(startIndex) {
+        for (let i = startIndex; i < categories.length; i++) {
+            categories[i].innerHTML = `<option value="">Pilih Kategori Level ${i + 1}</option>`;
+            categories[i].disabled = true;
+            wrappers[i] && (wrappers[i].style.display = 'none');
+        }
+    }
+
+    function populateSelect(select, wrapper, children, selectedId = null) {
+        const level = select.id.replace('categories', '');
+        select.innerHTML = `<option value="">Pilih Kategori Level ${level}</option>`;
+        
+        if (children.length) {
+            children.forEach(child => {
+                const option = document.createElement('option');
+                option.value = child.id;
+                option.textContent = child.name;
+                option.dataset.children = JSON.stringify(child.children_recursive || []);
+                
+                if (selectedId && child.id == selectedId) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+            wrapper.style.display = 'block';
+            select.disabled = false;
+        }
+    }
+
+    categories.forEach((cat, idx) => {
+        if (!cat) return;
+        cat.addEventListener('change', function () {
+            const children = JSON.parse(this.options[this.selectedIndex]?.dataset.children || '[]');
+            resetLevel(idx + 1);
+            if (categories[idx + 1]) {
+                populateSelect(categories[idx + 1], wrappers[idx + 1], children);
+            }
+        });
+    });
+
+    filterButton.addEventListener('click', function () {
+        let selectedName = '';
+        for (let i = categories.length - 1; i >= 0; i--) {
+            if (categories[i] && categories[i].value) {
+                selectedName = categories[i].options[categories[i].selectedIndex].text;
+                break;
+            }
+        }
+        hiddenCategory.value = selectedName.trim();
+        filterForm.submit();
+    });
+
+    // Preselect otomatis jika ada path dari server
+    @if (count($categoryPath) > 1)
+        @for ($i = 1; $i < count($categoryPath); $i++)
+            setTimeout(function () {
+                const prevSelect = categories[{{ $i - 1 }}];
+                const children = JSON.parse(prevSelect.options[prevSelect.selectedIndex]?.dataset.children || '[]');
+                populateSelect(categories[{{ $i }}], wrappers[{{ $i }}], children, {{ $categoryPath[$i]->id }});
+            }, {{ $i * 300 }});
+        @endfor
+    @endif
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const filterButton = document.getElementById('filterButton');
+    const filterForm = document.getElementById('filterForm');
+    const hiddenCategory = document.getElementById('selectedCategory');
+
+    const categoryInputs = [
+        document.getElementById('categories1'),
+        document.getElementById('categories2'),
+        document.getElementById('categories3'),
+        document.getElementById('categories4'),
+        document.getElementById('categories5')
+    ];
+
+    filterButton.addEventListener('click', function () {
+        let selectedName = '';
+
+        // Cari kategori terakhir yang dipilih, ambil text bukan value
+        for (let i = categoryInputs.length - 1; i >= 0; i--) {
+            if (categoryInputs[i] && categoryInputs[i].value) {
+                selectedName = categoryInputs[i].options[categoryInputs[i].selectedIndex].text;
+                break;
+            }
+        }
+
+        hiddenCategory.value = selectedName.trim();
+        filterForm.submit();
     });
 });
 
