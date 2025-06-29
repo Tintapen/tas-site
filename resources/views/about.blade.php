@@ -90,38 +90,58 @@
     
     <div class="wrap">
       @foreach ($milestones as $index => $milestone)
-          @php
-              $isLeft = $index % 2 === 0; // even = kiri, odd = kanan
-              $circleClass = 'circle' . ($index + 1);
-              $shimClass = 'shim' . ($index + 1);
-          @endphp
-  
-          @if ($isLeft)
-              <div class="col col1"></div>
-              <div class="col col2">
-                  <div class="circle {{ $circleClass }}">
-                      <h2><span><b></b> <i>{{ \Carbon\Carbon::parse($milestone->milestone_date)->format('Y') }}</i></span></h2>
-                      <div class="shim {{ $shimClass }}"></div>
-                  </div>
-                  <div class="content">
-                      <h4>{{ $milestone->description }}</h4>
-                  </div>
-              </div>
-          @else
-              <div class="col col1">
-                  <div class="circle {{ $circleClass }}">
-                      <h2><span><b></b> <i>{{ \Carbon\Carbon::parse($milestone->milestone_date)->format('Y') }}</i></span></h2>
-                      <div class="shim shimx {{ $shimClass }}"></div>
-                  </div>
-                  <div class="content">
-                      <h4>{{ $milestone->description }}</h4>
-                  </div>
-              </div>
-              <div class="col col2"></div>
-          @endif
+        @php
+          $isRight = $index % 2 === 0; // even = kiri, odd = kanan
+          $circleClass = 'circle' . ($index + 1);
+          $animationDelay = 0.75 * $index;
+          $year = \Carbon\Carbon::parse($milestone->milestone_date)->format('Y');
+
+          $shimClass = '';
+          if ($index === 0) {
+              $circleClass = 'circle1';
+              $shimClass = 'shim1';
+          } elseif ($isRight) {
+              $circleClass = 'circle3';
+          } else {
+              $circleClass = 'circle2';
+          }
+        @endphp
+
+        @if ($isRight)
+          <div class="col col1"></div>
+          <div class="col col2">
+            <div class="circle {{ $circleClass }}">
+              <h2>
+                <span>
+                    <b></b>
+                    <i>{{ $year }}</i>
+                </span>
+              </h2>
+              <div class="shim {{ $shimClass }}" style="animation-delay: {{ $animationDelay }}s"></div>
+            </div>
+            <div class="content">
+              <h4>{{ $milestone->description }}</h4>
+            </div>
+          </div>
+        @else
+          <div class="col col1">
+            <div class="circle {{ $circleClass }}">
+              <h2>
+                <span>
+                    <b></b>
+                    <i>{{ $year }}</i>
+                </span>
+              </h2>
+              <div class="shim shimx {{ $shimClass }}" style="animation-delay: {{ $animationDelay }}s"></div>
+            </div>
+            <div class="content">
+              <h4>{{ $milestone->description }}</h4>
+            </div>
+          </div>
+          <div class="col col2"></div>
+        @endif
       @endforeach
-    </div>
-  
+    </div>  
   </section>
   <!-- end milestone -->
   
