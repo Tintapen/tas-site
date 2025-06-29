@@ -8,4 +8,10 @@ return [
 
     'PH3' => 'Produk Kami',
     'PH4' => 'Produk Tidak Tersedia',
+
+    'PP1' => 'Cari produk...',
+
+    'PO1' => 'Pilih Level Kategori',
+
+    'PB1' => 'Terapkan Filter',
 ];
