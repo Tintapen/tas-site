@@ -81,15 +81,21 @@
           <div class="swiper-wrapper">
             @foreach ($featuredProducts as $product)
               <div class="swiper-slide">
-                <div class="service-item">
-                  <div class="service-item-contents">
-                    {{-- <a href="{{ route('product.show', $product->id) }}"> optional: ganti dengan route sesuai kebutuhan --}}
-                    <a href="#"> {{-- optional: ganti dengan route sesuai kebutuhan --}}
-                      <span class="service-item-category">{{ $product->category->name ?? 'Uncategorized' }}</span>
-                      <h2 class="service-item-title">{{ $product->name }}</h2>
-                    </a>
+                <div class="service-item border rounded overflow-hidden shadow-sm h-100 d-flex flex-column bg-white">
+                  <div class="service-item-image position-relative w-100" style="aspect-ratio: 4/3; overflow: hidden;">
+                    <img src="{{ asset('storage/' . $product->logo) }}" alt="{{ $product->name }}" class="img-fluid w-100 h-100 object-fit-contain">
                   </div>
-                  <img src="{{ asset('storage/' . $product->logo) }}" alt="{{ $product->name }}" class="img-fluid">
+
+                  <div class="service-item-contents p-3 flex-grow-1 d-flex flex-column justify-content-center text-center">
+                    <div class="d-block text-decoration-none">
+                      <span class="badge bg-primary mb-2">
+                        {{ $product->category->name ?? 'Uncategorized' }}
+                      </span>
+                      <h2 class="service-item-title">
+                        {{ $product->name }}
+                      </h2>
+                    </div>
+                  </div>
                 </div>
               </div>
             @endforeach
