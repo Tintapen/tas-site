@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Preselect otomatis jika ada path dari server
-    @if (count($categoryPath) > 1)
+    @if (count($categoryPath ?? []) > 1)
         @for ($i = 1; $i < count($categoryPath); $i++)
             setTimeout(function () {
                 const prevSelect = categories[{{ $i - 1 }}];
