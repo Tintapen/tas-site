@@ -29,7 +29,7 @@
           <div class="row g-4">
             <div class="col-xl-6">
               <form method="GET" action="{{ route('products.by_principal', $principal->slug) }}" class="input-group w-100 mx-auto d-flex" id="filterForm">
-                <input type="search" name="q" value="{{ request('q') }}" class="form-control p-3" placeholder="{{ __('Product.PP1') }}" aria-describedby="search-icon-1">
+                <input type="search" name="q" value="{{ request('q') }}" class="form-control p-3" placeholder="{{ __('Product.PP2') }}" aria-describedby="search-icon-1">
                 <input type="hidden" name="category" id="selectedCategory" id="selectedCategory" value="{{ $selectedCategoryName }}">
                 <button class="input-group-text p-3" id="search-icon-1"><i class="bi bi-search"></i></button>
               </form>

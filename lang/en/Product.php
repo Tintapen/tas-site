@@ -9,7 +9,7 @@ return [
     'PH3' => 'Our Product',
     'PH4' => 'Product Not Available',
 
-    'PP1' => 'Search products...',
+    'PP2' => 'Search products...',
 
     'PO1' => 'Select Category Level',
 
