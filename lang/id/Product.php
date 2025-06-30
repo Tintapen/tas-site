@@ -9,7 +9,7 @@ return [
     'PH3' => 'Produk Kami',
     'PH4' => 'Produk Tidak Tersedia',
 
-    'PP1' => 'Cari produk...',
+    'PP2' => 'Cari produk...',
 
     'PO1' => 'Pilih Level Kategori',
 
