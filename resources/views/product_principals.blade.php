@@ -108,7 +108,7 @@
                             <div>
                               <h4 class="fw-bold mb-3 text-primary">{{ $item->name }}</h4>
                               <div class="text-dark small mb-3" style="line-height: 1.7;">
-                                {{ session('locale') == 'id' ? strip_tags($item->content_id) : strip_tags($item->content_en) }}       
+                                {!! session('locale') == 'id' ? $item->content_id : $item->content_en !!}       
                               </div>
                             </div>
                           </div>
