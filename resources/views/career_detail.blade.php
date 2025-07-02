@@ -55,7 +55,7 @@
                 </div>
 
                 <!-- Job Description -->
-                {{ session('locale') == 'id' ? strip_tags($job->description_id) : strip_tags($job->description_en) }}       
+                {!! session('locale') == 'id' ? $job->description_id : $job->description_en !!}       
             </div>
 
             <div class="col-lg-4">
@@ -94,7 +94,7 @@
                             <i class="far fa-clock me-2 text-primary"></i>
                             {{ __('Career.CH16') }} :
                         </span>
-                        <span class="overview-item-value">{{ $job->application_date ? date('d M Y', strtotime($job->application_date)) : '-' }}</span>
+                        <span class="overview-item-value">{{ $job->application_deadline ? date('d M Y', strtotime($job->application_deadline)) : '-' }}</span>
                     </div>                    
                 </div>
 
