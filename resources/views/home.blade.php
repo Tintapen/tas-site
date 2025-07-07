@@ -113,72 +113,49 @@
     </div>
 
     <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
-      <div class="swiper init-swiper">
-        <script type="application/json" class="swiper-config">
-          {
-            "loop": true,
-            "speed": 600,
-            "autoplay": {
-              "delay": 5000
-            },
-            "slidesPerView": "auto",
-            "pagination": {
-              "el": ".swiper-pagination",
-              "type": "bullets",
-              "clickable": true
-            },
-            "breakpoints": {
-              "320": {
-                "slidesPerView": 1,
-                "spaceBetween": 40
-              },
-              "1200": {
-                "slidesPerView": 3,
-                "spaceBetween": 1
-              }
-            }
-          }
-        </script>
-        <div class="swiper-wrapper">
-          
-          <div class="swiper-slide porto-item d-flex flex-column justify-content-end overlay"  style="background-image: url(assets/img/testimonials-bg.jpg); background-size: cover; ">             
-            <div class="portos-content h-100">              
-              <div class="portos-info">
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End porto item -->
 
-          <div class="swiper-slide porto-item d-flex flex-column justify-content-end overlay"  style="background-image: url(assets/img/testimonials-bg.jpg); background-size: cover; ">             
-            <div class="portos-content h-100">              
-              <div class="portos-info">
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End porto item -->
+<section class="testimonial-carousel">
+    <div class="container">
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="testimonial-card text-center">
+                         <h2 class="fw-bold mb-5">PT GLOBAL JET EXPRESS</h2>
+                        <p class="lead mb-4">Kami menjawab kebutuhan J&T dengan menyediakan dan mengirimkan mereka lampu-lampu mobil dari merk Philips.
+Jenis lampu mobil yang dibutuhkan J&T yaitu head lamp (lampu depan), fog lamp (lampu kabut) dan signaling (lampu rem, lampu sign dan lampu senja)</p>
+<hr>
+                        <p class="lead mb-4">"Kami (J&T Express) cukup puas terhadap produk – produk dari PT Tri Anugerah Surya, di mana response yang sangat cepat, pengiriman yang sangat cepat dan packaging yang sangat rapi. Terima kasih"</p>
+                        <h5 class="fw-bold mb-1">Caryoko</h5>
+                        <p class="text-muted">SPV GA</p>
+                    </div>
+                </div>
 
-          <div class="swiper-slide porto-item d-flex flex-column justify-content-end overlay"  style="background-image: url(assets/img/testimonials-bg.jpg); background-size: cover; ">             
-            <div class="portos-content h-100">              
-              <div class="portos-info">
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
+                <div class="carousel-item active">
+                    <div class="testimonial-card text-center">
+                         <h2 class="fw-bold mb-5">PT WACANA MITRA PRAKASA</h2>
+                        <p class="lead mb-4">Kami menjawab kebutuhan Bengkel Fast tersebut dengan menyediakan dan mengirimkan mereka lampu-lampu mobil dari merk Philips
+Jenis lampu mobil yang dibutuhkan di bengkel FAST yaitu head lamp (lampu depan), fog lamp (lampu kabut) dan signaling (lampu rem, lampu sign dan lampu senja)</p>
+<hr>
+                        <p class="lead mb-4">"Kami dari bengkel Fast, sudah lama menjadi pelanggan dari PT Tri Anugerah Surya, untuk service sangat bagus, fast response dan untuk kualitas produk bagus, dan untuk varian produk juga lengkap sehingga bengkel kami bisa memenuhi kebutuhan customer. Semoga semakin sukses untuk PT Tri Anugerah Surya, tetap pertahankan service dan kualitas produknya"</p>
+                        <h5 class="fw-bold mb-1">Mirna</h5>
+                        <p class="text-muted">Purchasing</p>
+                    </div>
+                </div>
+             
+           
             </div>
-          </div><!-- End porto item -->
-
-          <div class="swiper-slide porto-item d-flex flex-column justify-content-end overlay"  style="background-image: url(assets/img/testimonials-bg.jpg); background-size: cover; ">             
-            <div class="portos-content h-100">              
-              <div class="portos-info">
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <div class="swiper-pagination"></div>
-      </div>
+    </div>
+</section>
+
     </div>
   </section>
   <!-- /portos Section -->
