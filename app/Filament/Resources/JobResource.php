@@ -184,9 +184,6 @@ class JobResource extends BaseResource
                     ->date('d M Y'),
                 TextColumn::make('created_at')
                     ->label('Posted At')
-                    ->date('d M Y')->sortable(),
-                TextColumn::make('created_at')
-                    ->label('Posted At')
                     ->date('d M Y')
                     ->sortable(),
                 TextColumn::make('creator.name')

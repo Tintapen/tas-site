@@ -13,6 +13,7 @@ use App\Models\Gallery;
 use App\Models\Job;
 use App\Models\Marketplace;
 use App\Models\News;
+use App\Models\Portfolio;
 use App\Models\Principal;
 use App\Models\Product;
 use App\Models\Reference;
@@ -32,8 +33,10 @@ class MainController extends Controller
         $marketPlaces = Marketplace::where('isactive', 'Y')
                                     ->whereHas('stores') // hanya yang punya store
                                     ->get();
+        $portfolios = Portfolio::where('isactive', 'Y')
+                                    ->get();
 
-        return view('home', compact('title', 'featuredProducts', 'marketPlaces'));
+        return view('home', compact('title', 'featuredProducts', 'marketPlaces', 'portfolios'));
     }
 
     public function about()

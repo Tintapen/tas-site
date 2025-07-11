@@ -3104,38 +3104,85 @@ transform: scale(1.1);
 }
 
 /* portfolio */
-
+/* === Testimonial Section Background === */
 .testimonial-carousel {
-            background: linear-gradient(135deg, #0d47a1 0%, #004586 100%);
-            padding: 60px 0;
-        }
-        .testimonial-card {
-            background-color: #ffffff;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        .testimonial-img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
+  background: linear-gradient(135deg, #0d47a1 0%, #004586 100%);
+  padding: 60px 0;
+}
 
+/* === Testimonial Card === */
+.testimonial-card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
 
-        .quote-icon {
-            font-size: 3rem;
-            color: #764ba2;
-            opacity: 0.3;
-        }
-        .carousel-control-prev,
-        .carousel-control-next {
-            width: 40px;
-            height: 40px;
-            background-color: #6366f1;
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-        }
+/* === Deskripsi dan Quote Style === */
+.testimonial-description p {
+  margin-bottom: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.testimonial-description blockquote {
+  background: #f8f9fa;
+  border-left: 5px solid #0d6efd;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 6px;
+  font-style: italic;
+  color: #555;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* === Carousel Controls (Navigation Arrows) === */
+.custom-control {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-control-prev.custom-control {
+  left: 200px; /* Dekatkan ke card */
+}
+
+.carousel-control-next.custom-control {
+  right: 200px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1); /* Putihkan icon panah */
+}
+
+/* === Responsive for Tablet and Mobile === */
+@media (max-width: 768px) {
+  .carousel-control-prev.custom-control {
+    left: 2px;
+  }
+
+  .carousel-control-next.custom-control {
+    right: 2px;
+  }
+
+  .testimonial-card {
+    padding: 20px;
+  }
+
+  .testimonial-description blockquote {
+    padding: 0.75rem 1rem;
+  }
+}
