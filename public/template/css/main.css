@@ -3186,3 +3186,10 @@ transform: scale(1.1);
     padding: 0.75rem 1rem;
   }
 }
+
+.modal-content .description-content,
+.modal-content .description-content * {
+  color: #212529 !important;
+  line-height: 1.6;
+}
+
