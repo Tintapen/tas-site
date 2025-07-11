@@ -107,8 +107,8 @@
                           <div class="col-md-6 p-4 d-flex flex-column justify-content-between" style="background-color: #f8f9fa; max-height: 90vh; overflow-y: auto;">
                             <div>
                               <h4 class="fw-bold mb-3 text-primary">{{ $item->name }}</h4>
-                              <div class="text-dark small mb-3" style="line-height: 1.7;">
-                                {!! session('locale') == 'id' ? $item->content_id : $item->content_en !!}       
+                              <div class="mb-3 description-content">
+                                {!! session('locale') == 'id' ? $item->content_id : $item->content_en !!}
                               </div>
                             </div>
                           </div>
