@@ -113,49 +113,45 @@
     </div>
 
     <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
-
-<section class="testimonial-carousel">
-    <div class="container">
-        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+      <section class="testimonial-carousel">
+        <div class="container position-relative">
+          <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="testimonial-card text-center">
-                         <h2 class="fw-bold mb-5">PT GLOBAL JET EXPRESS</h2>
-                        <p class="lead mb-4">Kami menjawab kebutuhan J&T dengan menyediakan dan mengirimkan mereka lampu-lampu mobil dari merk Philips.
-Jenis lampu mobil yang dibutuhkan J&T yaitu head lamp (lampu depan), fog lamp (lampu kabut) dan signaling (lampu rem, lampu sign dan lampu senja)</p>
-<hr>
-                        <p class="lead mb-4">"Kami (J&T Express) cukup puas terhadap produk – produk dari PT Tri Anugerah Surya, di mana response yang sangat cepat, pengiriman yang sangat cepat dan packaging yang sangat rapi. Terima kasih"</p>
-                        <h5 class="fw-bold mb-1">Caryoko</h5>
-                        <p class="text-muted">SPV GA</p>
-                    </div>
-                </div>
+              @foreach ($portfolios as $item)
+                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                  <div class="testimonial-card mx-auto text-center">
+                    {{-- Nama Perusahaan --}}
+                    <h3 class="fw-bold text-uppercase text-primary mb-4">{{ $item->company }}</h3>
 
-                <div class="carousel-item active">
-                    <div class="testimonial-card text-center">
-                         <h2 class="fw-bold mb-5">PT WACANA MITRA PRAKASA</h2>
-                        <p class="lead mb-4">Kami menjawab kebutuhan Bengkel Fast tersebut dengan menyediakan dan mengirimkan mereka lampu-lampu mobil dari merk Philips
-Jenis lampu mobil yang dibutuhkan di bengkel FAST yaitu head lamp (lampu depan), fog lamp (lampu kabut) dan signaling (lampu rem, lampu sign dan lampu senja)</p>
-<hr>
-                        <p class="lead mb-4">"Kami dari bengkel Fast, sudah lama menjadi pelanggan dari PT Tri Anugerah Surya, untuk service sangat bagus, fast response dan untuk kualitas produk bagus, dan untuk varian produk juga lengkap sehingga bengkel kami bisa memenuhi kebutuhan customer. Semoga semakin sukses untuk PT Tri Anugerah Surya, tetap pertahankan service dan kualitas produknya"</p>
-                        <h5 class="fw-bold mb-1">Mirna</h5>
-                        <p class="text-muted">Purchasing</p>
+                    {{-- Deskripsi --}}
+                    <div class="testimonial-description text-start mx-auto" style="max-width: 750px;">
+                      {!! session('locale') == 'id' ? $item->description_id : $item->description_en !!}
                     </div>
+
+                    {{-- Nama dan Divisi --}}
+                    <div class="mt-4">
+                      <h5 class="fw-bold mb-1">{{ $item->user }}</h5>
+                      <p class="text-muted">{{ $item->division }}</p>
+                    </div>
+                  </div>
                 </div>
-             
-           
+              @endforeach
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+
+            {{-- Tombol Navigasi --}}
+            @if (count($portfolios) > 1)
+              <button class="carousel-control-prev custom-control" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+              </button>
+              <button class="carousel-control-next custom-control" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
-            </button>
+              </button>
+            @endif
+          </div>
         </div>
-    </div>
-</section>
-
+      </section>
     </div>
   </section>
   <!-- /portos Section -->
