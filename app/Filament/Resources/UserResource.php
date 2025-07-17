@@ -106,4 +106,9 @@ class UserResource extends BaseResource
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('id', '>', 1); // 👈 ini menyembunyikan user 1
+    }
 }
