@@ -8,6 +8,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Str;
 
 class RolePermissionSeeder extends Seeder
 {
@@ -47,8 +48,12 @@ class RolePermissionSeeder extends Seeder
         // 4. Buat semua permission
         foreach ($menus as $menu) {
             foreach ($actions as $action) {
+                $label = $menu->label;
+                $keySource = $menu->url ? Str::after($menu->url, '/admin/') : $label;
+                $key = Str::slug($keySource);
+
                 Permission::firstOrCreate([
-                    'name' => "{$action}_{$menu->label}",
+                    'name' => "{$action}_{$key}",
                     'guard_name' => 'web',
                 ]);
             }
@@ -63,7 +68,9 @@ class RolePermissionSeeder extends Seeder
         // 7. Assign role ke user pertama & kedua (id = 1, 2)
         $user = User::whereIn('id', [1, 2])->get();
         if ($user) {
-            $user->syncRoles([$superAdmin]);
+            foreach ($user as $user) {
+                $user->syncRoles($superAdmin);
+            }
         }
     }
 }
