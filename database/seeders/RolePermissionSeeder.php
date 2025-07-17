@@ -48,7 +48,7 @@ class RolePermissionSeeder extends Seeder
         foreach ($menus as $menu) {
             foreach ($actions as $action) {
                 Permission::firstOrCreate([
-                    'name' => "{$action}_{$menu}",
+                    'name' => "{$action}_{$menu->label}",
                     'guard_name' => 'web',
                 ]);
             }
