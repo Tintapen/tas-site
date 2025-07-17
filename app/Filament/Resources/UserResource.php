@@ -7,6 +7,7 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Faker\Provider\Base;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -18,6 +19,7 @@ use Filament\Forms\Components\Toggle;
 use Illuminate\Support\Facades\Hash;
 use Filament\Tables\Columns\{BadgeColumn, TextColumn, IconColumn};
 use Filament\Tables\Filters\SelectFilter;
+use Spatie\Permission\Models\Role;
 
 class UserResource extends BaseResource
 {
@@ -25,17 +27,14 @@ class UserResource extends BaseResource
 
     public static function form(Form $form): Form
     {
+        /** @var User $user */
+        $user = auth()->user();
+
         return $form
             ->schema([
                 TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
-                Toggle::make('isactive')
-                    ->label('Status')
-                    ->inline(false)
-                    ->default(true)
-                    ->formatStateUsing(fn ($state) => $state === 'Y' || $state === true || is_null($state))
-                    ->dehydrateStateUsing(fn ($state) => $state ? 'Y' : 'N'),
+                    ->maxLength(100),
                 TextInput::make('password')
                     ->label('Password')
                     ->password()
@@ -46,6 +45,20 @@ class UserResource extends BaseResource
                     ->email()
                     ->required()
                     ->unique(ignoreRecord: true),
+                Select::make('role')
+                    ->label('Role')
+                    ->options(Role::pluck('name', 'id'))
+                    ->searchable()
+                    ->required()
+                    ->default(null) // default kosong saat create
+                    ->afterStateHydrated(function ($component, $state, $record) {
+                        // Hanya isi saat edit
+                        if ($record) {
+                            $component->state($record->roles()->first()?->id);
+                        }
+                    })
+                    ->dehydrated(true) // Agar tidak disimpan langsung di kolom user (karena relasi)
+                    ->reactive(),
             ]);
     }
 
@@ -57,26 +70,23 @@ class UserResource extends BaseResource
                     ->searchable(),
                 TextColumn::make('email')
                     ->searchable(),
-                BadgeColumn::make('isactive')
-                    ->label('Status')
-                    ->formatStateUsing(fn (string $state): string => $state === 'Y' ? 'Active' : 'Nonactive')
-                    ->color(fn (string $state): string => $state === 'Y' ? 'success' : 'danger'),
+                TextColumn::make('role.name')
+                    ->label('Role')
+                    ->getStateUsing(fn ($record) => $record->roles->first()?->name ?? '-')
+                    ->searchable(),
             ])
             ->defaultSort('name')
-            ->filters([
-                SelectFilter::make('isactive')
-                    ->label('Status')
-                    ->options([
-                        'Y' => 'Active',
-                        'N' => 'Nonactive',
-                    ]),
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+           ->actions([
+                Tables\Actions\EditAction::make()
+                    ->visible(fn ($record) => static::canEdit($record)),
+
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn ($record) => static::canDelete($record)),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->visible(fn () => static::canBulkDelete()),
                 ]),
             ]);
     }

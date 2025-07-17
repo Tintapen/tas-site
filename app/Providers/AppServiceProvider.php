@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Config;
 use App\Models\Sysconfig;
 use Illuminate\Pagination\Paginator;
+use App\Helpers\PermissionHelper;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -62,6 +63,10 @@ class AppServiceProvider extends ServiceProvider
                         ->collapsed();
 
                     foreach ($menu->children as $child) {
+                        if (!PermissionHelper::checkPermission('view', $child->url)) {
+                            continue;
+                        }
+
                         $items[] = NavigationItem::make()
                             ->label($child->label)
                             ->url(fn () => url($child->url))
@@ -70,6 +75,10 @@ class AppServiceProvider extends ServiceProvider
                             ->isActiveWhen(fn () => request()->is(trim(parse_url($child->url, PHP_URL_PATH), '/')));
                     }
                 } else {
+                    if (!PermissionHelper::checkPermission('view', $menu->url)) {
+                        continue;
+                    }
+
                     $items[] = NavigationItem::make()
                         ->label($menu->label)
                         ->icon($menu->icon ?? 'heroicon-o-document-text')
