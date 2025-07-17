@@ -9,11 +9,4 @@ use Filament\Resources\Pages\EditRecord;
 class EditSysconfig extends EditRecord
 {
     protected static string $resource = SysconfigResource::class;
-
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\DeleteAction::make(),
-        ];
-    }
 }

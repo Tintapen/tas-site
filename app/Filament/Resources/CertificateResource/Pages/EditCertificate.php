@@ -11,13 +11,6 @@ class EditCertificate extends EditRecord
 {
     protected static string $resource = CertificateResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\DeleteAction::make(),
-        ];
-    }
-
     protected function mutateFormDataBeforeSave(array $data): array
     {
         $oldLogo = $this->record->logo;
