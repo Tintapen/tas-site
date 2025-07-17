@@ -99,7 +99,7 @@ class ListCategories extends ListRecords
                             ->title('Import successful')
                             ->success()
                             ->send();
-                    })
+                    })->visible(fn () => static::$resource::canCreate())
         ];
     }
 }

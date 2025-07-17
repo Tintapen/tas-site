@@ -9,11 +9,4 @@ use Filament\Resources\Pages\EditRecord;
 class EditSocialmedia extends EditRecord
 {
     protected static string $resource = SocialmediaResource::class;
-
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\DeleteAction::make(),
-        ];
-    }
 }

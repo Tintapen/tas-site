@@ -199,7 +199,8 @@ class JobResource extends BaseResource
                     ]),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->visible(fn ($record) => static::canEdit($record)),
                 Action::make('duplicate')
                     ->label('Duplicate')
                     ->icon('heroicon-m-document-duplicate')
@@ -212,11 +213,16 @@ class JobResource extends BaseResource
                         $livewire->redirect(JobResource::getUrl('edit', ['record' => $new]));
                     })
                     ->requiresConfirmation()
-                    ->color('gray'),
+                    ->color('gray')
+                    ->visible(fn () => static::canCreate()),
+
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn ($record) => static::canDelete($record)),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->visible(fn () => static::canBulkDelete()),
                 ]),
             ]);
     }
