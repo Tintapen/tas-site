@@ -2,7 +2,7 @@
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
         <a href="{{ url('/') }}" class="logo d-flex align-items-center me-auto">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
+          <img src="{{ asset('storage/logos/logo_baru.svg') }}" alt="{{ $setting->name }}">
           <h4 class="sitename">{{ $setting->name }}</h4>
         </a>
 
