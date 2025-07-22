@@ -42,10 +42,10 @@
       <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
         <div class="tab-pane fade active show" id="features-tab-1">
           <div class="row">
-            <div class="col-lg-5 order-2 order-lg-1 mt-3 mt-lg-0 align-self-center" >
+            <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 align-self-center" >
               <h1>{{ __('About.AH2') }}</h1>
-              <p style="font-size: 24px; text-align: justify;" >
-              {{ __('About.AP1') }}
+              <p class="about-text">
+                {{ __('About.AP1') }}
               </p>
             </div>
             <div class="col-lg-6 order-1 order-lg-2 text-center">
