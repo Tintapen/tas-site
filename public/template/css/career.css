@@ -103,6 +103,11 @@
         margin-right: 15px;
         flex-shrink: 0;
     }
+
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
     
     .logo-container {
         text-align: center;
@@ -110,6 +115,10 @@
     
     .logo {
         max-width: 100%;
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+        object-fit: contain;
         margin-bottom: -20px;
     }
     
