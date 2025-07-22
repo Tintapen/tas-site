@@ -9,4 +9,7 @@ return [
 
     'HH3' => 'Portfolio',
     'HP3' => 'Our Portfolio',
+
+    'HL1' => 'We distribute high-quality products to provide optimal benefits for every user',
+    'HL2' => 'Guranteed Customer satisfaction is our priority because your satisfaction is our success',
 ];

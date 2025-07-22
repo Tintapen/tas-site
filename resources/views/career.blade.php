@@ -29,9 +29,9 @@
             </div>
             <div class="col-md-5">
                 <div class="logo-container">
-                    <img src="{{ $logo }}" alt="Logo"  class="logo">
+                    <img src="{{ $logo }}" alt="Logo" class="logo">
                 </div>
-                <p class="mt-4" style="text-align: justify;">
+                <p class="mt-4" style="text-align: justify; font-size: 20px">
                     {{ __('Career.CP1') }}
                 </p>
             </div>

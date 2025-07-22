@@ -11,4 +11,7 @@ return [
 
     'HH3' => 'Portofolio',
     'HP3' => 'Portofolio Kami',
+
+    'HL1' => 'Produk-produk yang kami distribusikan adalah produk berkualitas tinggi sehingga dapat memberikan manfaat yang optimal bagi setiap penggunanya',
+    'HL1' => 'Jaminan kepuasan pelanggan adalah prioritas kami karena kepuasan Anda adalah kesuksesan kami.',
 ];

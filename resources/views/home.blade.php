@@ -21,12 +21,10 @@
         <div class="col-lg-6 order-2 order-lg-1 content">
           <h3>{{ __('Home.HH1') }}</h3>
           <p>{{ __('Home.HP1') }}</p>
-          @if (app()->getLocale() == 'id')
             <ul>
-                <li><i class="bi bi-check2-all"></i> <span>Produk-produk yang kami distribusikan adalah produk berkualitas tinggi sehingga dapat memberikan manfaat yang optimal bagi setiap penggunanya</span></li>
-                <li><i class="bi bi-check2-all"></i> <span>Jaminan kepuasan pelanggan adalah prioritas kami karena kepuasan Anda adalah kesuksesan kami.</span></li>
+              <li><i class="bi bi-check2-all"></i> <span>{{ __('Home.HL1') }}</span></li>
+              <li><i class="bi bi-check2-all"></i> <span>{{ __('Home.HL2') }}</span></li>
             </ul>
-          @endif
         </div>
       </div>
     </div>
