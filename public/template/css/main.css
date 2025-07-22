@@ -3162,11 +3162,11 @@ transform: scale(1.1);
 }
 
 .carousel-control-prev.custom-control {
-  left: 200px; /* Dekatkan ke card */
+  left: calc(3.5rem + 3.5vw);
 }
 
 .carousel-control-next.custom-control {
-  right: 200px;
+  right: calc(3.5rem + 3.5vw);
 }
 
 .carousel-control-prev-icon,
@@ -3199,3 +3199,17 @@ transform: scale(1.1);
   line-height: 1.6;
 }
 
+.about-text {
+  font-size: 24px;
+  text-align: justify;
+  text-justify: inter-word;
+  line-height: 1.8;            /* penting: buat lebih lega */
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .about-text {
+    font-size: 16px; /* Supaya pas di HP */
+  }
+}
