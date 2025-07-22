@@ -4,16 +4,16 @@ return [
     'CH1' => 'Career',
     'CH2' => 'Core Values',
 
-    'CP1' => 'The interlocking circles represent a solid and enduring relationship—reflecting the company’s synergy and ongoing collaboration with customers, vendors, employees, and all business partners.',
-    'CP2' => 'Our company’s core values are born from a strong desire to achieve our vision and mission, <br> along with a deep commitment to excellence in every activity we undertake',
+    'CP1' => 'The linked circle describes a strong relationship between the company and our customers, vendors, employees and all business partners in a synergistic and sustainable cooperative relationship.',
+    'CP2' => 'Our corporate values are born from a strong desire to achieve our company vision and mission, <br> as well as a high commitment in carrying out every activity.',
 
     'CH3' => 'Trust',
     'CH4' => 'Honesty',
-    'CH5' => 'Perseverance',
-    'CH6' => 'Teamwork',
+    'CH5' => 'Persistence',
+    'CH6' => 'Team Work',
     'CH7' => 'Creativity',
-    'CH8' => 'Process Simplification',
-    'CH9' => 'Mutually Beneficial Relationships',
+    'CH8' => 'Simplify',
+    'CH9' => 'Win-Win',
 
     'CP3' => 'Job Vacancy',
 
