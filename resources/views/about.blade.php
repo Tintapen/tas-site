@@ -56,10 +56,10 @@
         <!-- End Tab Content Item -->
         
         <div class="tab-pane fade" id="features-tab-2">
-          <div class="row">
-            <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 align-self-center">
+          <div class="row align-items-center">
+            <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
               <h1>{{ __('About.AH3') }}</h1>
-  
+              
               <ul>
                 <li><i class="bi bi-bullseye"></i> <span style="font-size: 24px;">{{ __('About.AS1') }}</span></li>
                 <li><i class="bi bi-bullseye"></i> <span style="font-size: 24px;">{{ __('About.AS2') }}</span></li>
