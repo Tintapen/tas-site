@@ -4,6 +4,8 @@ namespace App\Filament\Resources\RoleResource\Pages;
 
 use App\Filament\Resources\RoleResource;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class EditRole extends EditRecord
 {
@@ -11,17 +13,23 @@ class EditRole extends EditRecord
 
     protected function afterSave(): void
     {
-        $permissions = $this->form->getState()['permissions_state'] ?? [];
+        $permissions = [];
 
-        // Pastikan permissions dalam bentuk array
-        if (is_string($permissions)) {
-            $decoded = json_decode($permissions, true);
-            $permissions = is_array($decoded) ? $decoded : [];
+        foreach ($this->data as $key => $value) {
+            if (Str::startsWith($key, 'permissions_group_') && is_array($value)) {
+                $permissions = array_merge($permissions, $value);
+            }
         }
 
-        // Filter supaya isinya hanya string permission
-        $permissions = array_filter($permissions, fn ($perm) => is_string($perm));
-
+        logger("info", [$permissions]);
         $this->record->syncPermissions($permissions);
+    }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        // Hapus field virtual yang tidak perlu disimpan ke tabel
+        return collect($data)
+            ->reject(fn ($_, $key) => $key === 'permissions_state' || str($key)->startsWith('permissions_group_'))
+            ->toArray();
     }
 }
