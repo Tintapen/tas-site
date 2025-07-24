@@ -75,25 +75,20 @@ class RoleResource extends BaseResource
                         ->options($permissionOptions)
                         ->columns(3)
                         ->bulkToggleable()
-                        ->dehydrated(false)
-                        ->reactive()
-                        ->afterStateHydrated(function (callable $set, callable $get) use ($permissionOptions, $key) {
-                            $saved = $get('permissions_state') ?? [];
-                            $selected = array_intersect(array_keys($permissionOptions), $saved);
-                            $set("permissions_group_{$key}", $selected);
-                        })
-                        ->afterStateUpdated(function ($state, callable $set, callable $get) use ($actions) {
-                            $allGroups = $get();
-
-                            $newPermissions = collect();
-
-                            foreach ($allGroups as $field => $val) {
-                                if (Str::startsWith($field, 'permissions_group_') && is_array($val)) {
-                                    $newPermissions = $newPermissions->merge($val);
-                                }
+                        ->afterStateHydrated(function (callable $set, ?Model $record) use ($key, $actions) {
+                            if (!$record) {
+                                return;
                             }
 
-                            $set('permissions_state', $newPermissions->unique()->values()->toArray());
+                            $assignedPermissions = $record->permissions->pluck('name')->toArray();
+
+                            $groupPermissions = collect($actions)
+                                ->map(fn ($action) => "{$action}_{$key}")
+                                ->filter(fn ($perm) => in_array($perm, $assignedPermissions))
+                                ->values()
+                                ->toArray();
+
+                            $set("permissions_group_{$key}", $groupPermissions);
                         })
                 ])->columnSpan(1)
             );
@@ -102,40 +97,13 @@ class RoleResource extends BaseResource
         self::ensurePermissionsExist($allPermissions);
 
         return $form->schema([
-            Hidden::make('permissions_state')
-                ->default([])
-                ->dehydrated(true)
-                ->afterStateHydrated(function ($state, callable $set, callable $get, ?Model $record) use ($menus, $actions) {
-                    if ($record) {
-                        $state = $record->permissions->pluck('name')->toArray();
-                        $set('permissions_state', $state);
-
-                        foreach ($menus as $menu) {
-                            $keySource = $menu->url ? Str::after($menu->url, '/admin/') : $menu->label;
-                            $key = Str::slug($keySource);
-
-                            if (!$key) {
-                                continue;
-                            }
-
-                            $groupPermissions = collect($actions)
-                                ->map(fn ($action) => "{$action}_{$key}")
-                                ->filter(fn ($perm) => in_array($perm, $state))
-                                ->toArray();
-
-                            $set("permissions_group_{$key}", $groupPermissions);
-                        }
-                    }
-                }),
-
             Grid::make(1)->schema([
                 TextInput::make('name')
-                    ->label('Nama Role')
+                    ->label('Name')
                     ->required(),
-
                 Toggle::make('select_all')
                     ->label('Select All')
-                    ->helperText('Centang semua permission untuk role ini.')
+                    ->helperText('Check all permissions for this role.')
                     ->reactive()
                     ->dehydrated(false)
                     ->afterStateHydrated(function (callable $set, callable $get) use ($allPermissions) {
@@ -162,15 +130,10 @@ class RoleResource extends BaseResource
 
                         $set('permissions_state', $state ? array_unique($allPermissions) : []);
                     })
-        ]),
+            ]),
 
             Grid::make(3)->schema($permissionCards->toArray()),
         ]);
-    }
-
-    public static function mutateFormDataBeforeSave(array $data): array
-    {
-        return self::mutateFormDataBeforeCreate($data);
     }
 
     public static function table(Table $table): Table
