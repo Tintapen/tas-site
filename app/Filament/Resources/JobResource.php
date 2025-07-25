@@ -24,6 +24,7 @@ use Filament\Tables\Actions\Action;
 use App\Models\Department;
 use App\Models\Reference;
 use App\Models\ReferenceDetail;
+use Carbon\Carbon;
 
 class JobResource extends BaseResource
 {
@@ -136,7 +137,7 @@ class JobResource extends BaseResource
                     ->label('Apply Deadline')
                     ->native(false)
                     ->closeOnDateSelection()
-                    ->minDate(now())
+                    ->minDate(Carbon::today())
                     ->displayFormat('d M Y')
                     ->disabled(fn (?Job $record) => self::isReadOnly($record))
                     ->required(),
@@ -144,7 +145,7 @@ class JobResource extends BaseResource
                     ->label('Expired Date')
                     ->native(false) // tampilkan kalender popup bawaan Filament
                     ->closeOnDateSelection() // otomatis tutup setelah pilih tanggal
-                    ->minDate(now()) // opsional: biar nggak bisa pilih tanggal lampau
+                    ->minDate(Carbon::today()) // opsional: biar nggak bisa pilih tanggal lampau
                     ->displayFormat('d M Y')
                     ->disabled(fn (?Job $record) => self::isReadOnly($record))
                     ->required(),
