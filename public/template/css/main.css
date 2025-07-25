@@ -997,6 +997,7 @@ section,
   #bg-video {
     min-height: 70vh;
     max-height: 100vh;
+    margin-top: 1.5vh;
     
   }
 }
