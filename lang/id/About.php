@@ -11,8 +11,8 @@ return [
     'AS3' => 'Menjaga kerjasama tim dan juga memaksimakan potensi dari sumber daya manusia perusahaan',
     'AS4' => 'Terus berusaha melakukan perubahan berkesinambungan ke arah yang lebih baik',
 
-    'AH4' => 'Pencapaian',
-    'AP2' => 'Pencapaian Kami',
+    'AH4' => 'Perjalanan',
+    'AP2' => 'Perjalanan Kami',
     'AH5' => 'Sertifikasi',
     'AP3' => 'Sertifikasi Kami',
     'AH6' => 'Lokasi',
