@@ -211,7 +211,9 @@ class MainController extends Controller
     public function news()
     {
         $limit = Sysconfig::getValue('PAGE_NEWS', 1);
-        $news = News::latest()->paginate($limit);
+        $news = News::where('isactive', 'Y')
+                    ->latest()
+                    ->paginate($limit);
 
         return view('news', compact('news'));
     }
@@ -227,8 +229,8 @@ class MainController extends Controller
     public function gallery()
     {
         $ref = Reference::where('name', 'Gallery Group')
-        ->where('isactive', 'Y')
-        ->first();
+                        ->where('isactive', 'Y')
+                        ->first();
 
         $galleryGroups = [];
         if ($ref) {
