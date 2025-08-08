@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\NewsResource\Pages;
 use App\Filament\Resources\NewsResource\RelationManagers;
 use App\Models\News;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -54,8 +55,14 @@ class NewsResource extends BaseResource
                     ->label('Posted Date')
                     ->native(false) // tampilkan kalender popup bawaan Filament
                     ->closeOnDateSelection() // otomatis tutup setelah pilih tanggal
-                    ->minDate(now()) // opsional: biar nggak bisa pilih tanggal lampau
-                    ->displayFormat('d M Y'), // opsional: format tampilan
+                    ->minDate(function ($record) {
+                        if ($record) {
+                            return $record->posted_at;
+                        }
+                        return Carbon::today();
+                    }) // opsional: biar nggak bisa pilih tanggal lampau
+                    ->displayFormat('d M Y') // opsional: format tampilan
+                    ->required(),
                 Toggle::make('isactive')
                     ->label('Status')
                     ->inline(false)
@@ -135,4 +142,87 @@ class NewsResource extends BaseResource
             'edit' => Pages\EditNews::route('/{record}/edit'),
         ];
     }
+
+    // public static function getRules(string $context): array
+    // {
+    //     if ($context === 'create') {
+    //         return [
+    //             'posted_at' => ['required', 'date', 'after_or_equal:2025-08-02'],
+    //             // rules lain...
+    //         ];
+    //     }
+
+    //     if ($context === 'edit') {
+    //         return [
+    //             'posted_at' => ['required', 'date'],
+    //             // rules lain...
+    //         ];
+    //     }
+
+    //     return [];
+    // }
+    // public static function getRules(string $context): array
+    // {
+    //     if ($context === 'edit') {
+    //         return [
+    //             'posted_at' => ['required', 'date'], // tanpa after_or_equal di edit
+    //             // rules lainnya jika ada
+    //         ];
+    //     }
+
+    //     return [];
+    // }
+
+    // public function getValidationRules(): array
+    // {
+    //     if ($this->isCreating()) {
+    //         return [
+    //             'posted_at' => ['required', 'date', 'after_or_equal:2025-08-02'],
+    //             // rules lainnya
+    //         ];
+    //     }
+
+    //     if ($this->isEditing()) {
+    //         return [
+    //             'posted_at' => ['required', 'date'],
+    //             // rules lainnya
+    //         ];
+    //     }
+
+    //     return [];
+    // }
+    // /**
+    //  * Override getRules to provide different validation for create and edit
+    //  *
+    //  * @param string $context 'create' or 'edit'
+    //  * @return array<string, array<string>>
+    //  */
+    // public static function getRules(string $context): array
+    // {
+    //     if ($context === 'create') {
+    //         return [
+    //             'title_id' => ['required', 'string', 'max:255'],
+    //             'title_en' => ['required', 'string', 'max:255'],
+    //             'content_id' => ['required', 'string'],
+    //             'content_en' => ['required', 'string'],
+    //             'posted_at' => ['required', 'date', 'after_or_equal:2025-08-02'],
+    //             'isactive' => ['required', 'in:Y,N'],
+    //             'thumbnail' => ['required', 'image', 'max:1024'],
+    //         ];
+    //     }
+
+    //     if ($context === 'edit') {
+    //         return [
+    //             'title_id' => ['required', 'string', 'max:255'],
+    //             'title_en' => ['required', 'string', 'max:255'],
+    //             'content_id' => ['required', 'string'],
+    //             'content_en' => ['required', 'string'],
+    //             'posted_at' => ['required', 'date'], // No after_or_equal here
+    //             'isactive' => ['required', 'in:Y,N'],
+    //             'thumbnail' => ['nullable', 'image', 'max:1024'],
+    //         ];
+    //     }
+
+    //     return [];
+    // }
 }
