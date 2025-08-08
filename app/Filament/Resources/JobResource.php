@@ -137,7 +137,12 @@ class JobResource extends BaseResource
                     ->label('Apply Deadline')
                     ->native(false)
                     ->closeOnDateSelection()
-                    ->minDate(Carbon::today())
+                    ->minDate(function ($record) {
+                        if ($record) {
+                            return $record->posted_at;
+                        }
+                        return Carbon::today();
+                    }) // opsional: biar nggak bisa pilih tanggal lampau
                     ->displayFormat('d M Y')
                     ->disabled(fn (?Job $record) => self::isReadOnly($record))
                     ->required(),
@@ -145,7 +150,12 @@ class JobResource extends BaseResource
                     ->label('Expired Date')
                     ->native(false) // tampilkan kalender popup bawaan Filament
                     ->closeOnDateSelection() // otomatis tutup setelah pilih tanggal
-                    ->minDate(Carbon::today()) // opsional: biar nggak bisa pilih tanggal lampau
+                    ->minDate(function ($record) {
+                        if ($record) {
+                            return $record->posted_at;
+                        }
+                        return Carbon::today();
+                    }) // opsional: biar nggak bisa pilih tanggal lampau
                     ->displayFormat('d M Y')
                     ->disabled(fn (?Job $record) => self::isReadOnly($record))
                     ->required(),
