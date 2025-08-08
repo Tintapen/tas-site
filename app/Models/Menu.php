@@ -13,7 +13,7 @@ class Menu extends Model
     use HasFactory;
     use HasAuditTrail;
 
-    protected $fillable = ['label', 'url', 'icon', 'parent_id', 'sort'];
+    protected $fillable = ['label', 'url', 'icon', 'parent_id', 'sort', 'isactive'];
 
     public function parent()
     {
